@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+@theme {
+  /* Palette pulled from the golden-hour Judah St photos */
+  --color-bg: #fbf6ec; /* warm cream */
+  --color-card: #fffdf6;
+  --color-ink: #26243a; /* dusk plum-navy */
+  --color-ink-soft: #5d5a70;
+  --color-sunset: #e2603a; /* sunset orange */
+  --color-sunset-deep: #c14a28;
+  --color-gold: #eeae4e;
+  --color-dusk: #3d4266; /* evening blue */
+  --color-sage: #87927c;
+  --color-line: #e5dcc9;
+
+  --font-display: "Fraunces", "Georgia", serif;
+  --font-body: "DM Sans", system-ui, sans-serif;
+}
+
+/* Base resets stay inside @layer base so Tailwind utilities win. */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: var(--color-gold);
+    color: var(--color-ink);
+  }
+}
