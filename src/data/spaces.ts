@@ -32,8 +32,8 @@ export const spaces: Space[] = [
     id: 'studios',
     name: 'Studios & Small Offices',
     description:
-      'Practice rooms and recording space for musicians, plus small offices for solo practitioners — therapists, real estate agents, independent professionals. Join the interest list.',
-    goodFor: ['Music practice', 'Recording', 'Solo office'],
+      'These spaces are still taking shape. Curious? Get in touch and we’ll keep you posted.',
+    goodFor: [],
     bookingType: 'Studio / office interest',
   },
 ]

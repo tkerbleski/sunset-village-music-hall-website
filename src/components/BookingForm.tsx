@@ -72,8 +72,7 @@ export default function BookingForm() {
         </h2>
         <p className="mt-4 leading-relaxed text-ink-soft">
           Planning a private event, a workshop, a show — or curious about a
-          studio? Tell us a little and we&rsquo;ll get back to you. No detail
-          is too rough.
+          studio? Tell us a little and we&rsquo;ll get back to you.
         </p>
 
         <form onSubmit={onSubmit} className="mt-8 space-y-4">

@@ -9,9 +9,8 @@ export default function Spaces() {
         </p>
         <h2 className="font-display text-4xl font-semibold sm:text-5xl">The spaces</h2>
         <p className="mt-4 max-w-2xl leading-relaxed text-ink-soft">
-          Sunset Village is built to be used. Book the hall for a private
-          event, request the community space for a workshop or meeting, or get
-          on the list for a studio.
+          Book the hall for a private event, or request the community space
+          for a workshop or meeting.
         </p>
         <div className="mt-10 grid gap-5 md:grid-cols-3">
           {spaces.map((s) => (

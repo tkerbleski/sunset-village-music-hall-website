@@ -55,9 +55,9 @@ export const businesses: Business[] = [
     id: 'more',
     name: 'More in the works',
     status: 'planned',
-    tagline: 'Practice rooms · recording space · small offices',
+    tagline: 'More spaces taking shape',
     description:
-      'The remaining spaces are being shaped into practice and recording rooms for musicians and small offices for solo practitioners. Interested? Get in touch below.',
+      'The remaining spaces are still being shaped — more to come. Interested in the Village? Get in touch below.',
     hours: null,
     hoursNote: 'In planning',
     link: '#book',
