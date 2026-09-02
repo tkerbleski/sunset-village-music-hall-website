@@ -1,17 +1,17 @@
 @import "tailwindcss";
 
 @theme {
-  /* Palette pulled from the golden-hour Judah St photos */
-  --color-bg: #fbf6ec; /* warm cream */
-  --color-card: #fffdf6;
-  --color-ink: #26243a; /* dusk plum-navy */
-  --color-ink-soft: #5d5a70;
-  --color-sunset: #e2603a; /* sunset orange */
-  --color-sunset-deep: #c14a28;
-  --color-gold: #eeae4e;
-  --color-dusk: #3d4266; /* evening blue */
-  --color-sage: #87927c;
-  --color-line: #e5dcc9;
+  /* Cream, ink, and painted-sign red. Pulled from the corner itself:
+     evening sky, old signage, newsprint. */
+  --color-bg: #f9f4e8; /* newsprint cream */
+  --color-card: #fffcf3;
+  --color-ink: #211e2b; /* near-black plum */
+  --color-ink-soft: #57536a;
+  --color-line: #d9d0bc; /* hairline rules */
+  --color-sunset: #cc4b26; /* painted-sign red-orange */
+  --color-sunset-deep: #a83a1b;
+  --color-gold: #dfa032;
+  --color-dusk: #363c5c; /* evening blue */
 
   --font-display: "Fraunces", "Georgia", serif;
   --font-body: "DM Sans", system-ui, sans-serif;
@@ -32,4 +32,17 @@
     background: var(--color-gold);
     color: var(--color-ink);
   }
+  /* Visible keyboard focus everywhere. */
+  :focus-visible {
+    outline: 2px solid var(--color-sunset);
+    outline-offset: 2px;
+  }
+}
+
+@utility eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-sunset);
 }

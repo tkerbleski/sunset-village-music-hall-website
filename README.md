@@ -22,14 +22,24 @@ Originals go in `Photo Assets/` (git-ignored — keep backups elsewhere).
 and writes webp to `public/photos/`. Known photos get stable names via the
 map in `scripts/optimize-photos.mjs`; new drops get slugged filenames.
 
+## Pages
+
+React Router SPA (vercel.json rewrites all paths to index.html):
+`/` home, `/events` calendar (upcoming + recent), `/events/:id` event
+pages, `/music-hall` venue page with the inquiry form.
+
 ## Content
 
-- `src/data/businesses.ts` — shops + hours (**placeholder hours — confirm with Tom**)
-- `src/data/events.ts` — Music Hall calendar; events marked `sample: true`
-  render an "example" badge. Add `ticketUrl` (Stripe link / Eventbrite) to an
-  event to turn on its "Get tickets" button — this is the seam for real
-  ticket sales later.
-- `src/data/spaces.ts` — bookable spaces feeding the inquiry form
+All frequently changing content lives in `src/data/` — components only
+render it:
+
+- `src/data/site.ts` — address, directions link, transit line, socials
+- `src/data/tenants.ts` — shops/spaces, status (open / coming-soon), hours
+  (**placeholder hours — confirm with Tom**)
+- `src/data/events.ts` — the calendar; upcoming/past computed from date.
+  Events marked `sample: true` render an "example listing" label. Add
+  `ticketUrl` (Stripe payment link / Eventbrite) to an event to turn on its
+  "Tickets" button — this is the seam for real ticket sales later.
 
 ## Forms / backend
 
