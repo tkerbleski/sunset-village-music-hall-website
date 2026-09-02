@@ -23,9 +23,6 @@ export default function Story() {
               consignment shop, a flower shop, a music hall, and more on the
               way.
             </p>
-            <p className="font-medium text-ink">
-              Come by. It&rsquo;s your village too.
-            </p>
           </div>
         </div>
         <div className="space-y-4">
@@ -39,12 +36,14 @@ export default function Story() {
               Judah Street, circa 1950s — the original Sunset Village.
             </figcaption>
           </figure>
+          {/* Placeholder until we shoot the corner as Sunset Village — swap in
+              a real photo (drop in Photo Assets/, run optimize:photos). */}
           <figure>
-            <img
-              src="/photos/building-today.webp"
-              alt="The building at 4114 Judah St today, at the corner of 46th Avenue"
-              className="w-full rounded-xl border border-line shadow-sm"
-            />
+            <div className="flex aspect-[3/2] w-full items-center justify-center rounded-xl border border-dashed border-line bg-card">
+              <p className="px-6 text-center text-sm text-ink-soft">
+                Photo of the corner today coming soon
+              </p>
+            </div>
             <figcaption className="mt-2 text-xs text-ink-soft">
               The same corner today — 4114 Judah St at 46th Ave.
             </figcaption>
