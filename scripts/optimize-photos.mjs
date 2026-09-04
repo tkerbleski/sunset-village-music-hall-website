@@ -25,6 +25,7 @@ const NAMES = {
   'historicsunsetvillage.jpg': 'historic-1950s',
   'IMG_9970.jpg': 'flyer-olas-pena-aug-7',
   'Screenshot 2026-09-03 at 7.40.21 PM.png': 'flyer-sunset-is-dead',
+  'flickr-8012740316-sunset-village-sunset-toggery-and-sally-s-coffee-s.jpg': 'historic-toggery',
 }
 
 const slug = (name) =>

@@ -184,6 +184,17 @@ export default function Home() {
             </figure>
           </div>
         </div>
+        <figure className="mt-10">
+          <img
+            src="/photos/historic-toggery.webp"
+            alt="The painted Sunset Village sign on the Sunset Toggery building, with Sally's Coffee Shop next door"
+            className="w-full border-2 border-ink"
+          />
+          <figcaption className="mt-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-ink-soft">
+            Your complete shopping center: Sunset Toggery and Sally's Coffee
+            Shop, Judah &amp; 45th Avenue
+          </figcaption>
+        </figure>
       </section>
 
       {/* Newsletter */}
