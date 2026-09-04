@@ -55,10 +55,6 @@ export default function Home() {
           <h1 className="mt-3 font-hero text-6xl leading-[0.95] [text-shadow:0_2px_28px_rgba(20,18,35,0.55)] sm:text-8xl">
             Sunset Village
           </h1>
-          <p className="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-bg/95 [text-shadow:0_1px_10px_rgba(20,18,35,0.8)]">
-            Music, shops, classes, and other things happening in a former
-            church a few blocks from the beach.
-          </p>
           <div className="mt-7 flex flex-wrap justify-center gap-3">
             <Link
               to="/events"

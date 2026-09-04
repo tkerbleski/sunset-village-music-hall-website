@@ -29,42 +29,45 @@ export interface VillageEvent {
 
 export const events: VillageEvent[] = [
   {
+    id: 'the-sunset-is-dead',
+    title: 'The Sunset is Dead',
+    date: '2026-09-05',
+    time: 'Doors 7pm',
+    venue: 'Music Hall',
+    summary:
+      'A night of Dead music from Outer Sunset band Tangled & Free, in honor of the Forever Grateful shows happening across SF.',
+    details:
+      'In honor of the Forever Grateful exhibitions and shows happening across San Francisco, a special night of Dead music from Outer Sunset band Tangled & Free.',
+    price: '$10',
+  },
+  {
+    id: 'olas-perdidas-sep-9',
+    title: 'Olas Perdidas',
+    date: '2026-09-09',
+    time: '6:00 to 9:00pm',
+    venue: 'Music Hall',
+    summary: 'Olas Perdidas return to the hall.',
+    ticketUrl: 'https://www.tickettailor.com/events/toddhanniganmusicllc/2361891',
+  },
+  {
+    id: 'first-show-aug-7',
+    title: 'Olas Perdidas with PEÑA (solo)',
+    date: '2026-08-07',
+    time: 'Doors 7pm',
+    venue: 'Music Hall',
+    summary: 'The first official show at the Music Hall.',
+    details:
+      'The first official show at Sunset Village Music Hall, the Outer Sunset’s newest live music venue. Olas Perdidas, with a solo set from PEÑA.',
+  },
+  {
     id: 'open-house-july-4',
     title: 'Music Hall Open House',
     date: '2026-07-04',
+    time: 'Doors 2:30pm',
     venue: 'Music Hall',
-    summary: 'First look at the hall, with sets from Sadie Applegate and Sunset Taxi Service.',
+    summary: 'First look at the hall. Sadie Applegate, Sunset Taxi Service, and Zoo. All ages.',
     details:
-      'The Music Hall opened its doors for a first listen. Sadie Applegate and Sunset Taxi Service played to a full room.',
-  },
-  {
-    id: 'sample-friday-show',
-    title: 'Friday Night at the Hall',
-    date: '2026-09-18',
-    time: '7:30pm',
-    venue: 'Music Hall',
-    summary: 'Live music from Sunset locals. Lineup to be announced.',
-    price: '$15',
-    sample: true,
-  },
-  {
-    id: 'sample-listening-night',
-    title: 'Neighborhood Listening Night',
-    date: '2026-09-26',
-    time: '7:00pm',
-    venue: 'Music Hall',
-    summary: 'Bring a record, hear it on the big system. Casual, all ages.',
-    sample: true,
-  },
-  {
-    id: 'sample-matinee',
-    title: 'Sunday Matinee',
-    date: '2026-10-04',
-    time: '3:00pm',
-    venue: 'Music Hall',
-    summary: 'Acoustic sets in the afternoon while the fog burns off.',
-    price: '$10',
-    sample: true,
+      'The Music Hall opened its doors for a first listen. Sadie Applegate at 3pm, Sunset Taxi Service at 4:30pm, and Zoo at 7pm. Doors at 2:30pm, all ages.',
   },
 ]
 
