@@ -41,7 +41,7 @@ export const tenants: Tenant[] = [
     name: 'Sunset Variety',
     status: 'open',
     blurb:
-      'A shop of prints, ceramics, textiles, woodwork, and other goods by artists with roots in the Sunset. Run by Jeana Lorraine.',
+      'A shop of prints, ceramics, textiles, woodwork, and other goods by artists with roots in the Sunset.',
     hours: [H('11:00', '17:00'), CLOSED, CLOSED, H('11:00', '18:00'), H('11:00', '18:00'), H('11:00', '18:00'), H('11:00', '18:00')],
     link: 'https://sunsetvariety.com/',
     linkLabel: 'sunsetvariety.com',
