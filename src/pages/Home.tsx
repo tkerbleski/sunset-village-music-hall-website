@@ -147,7 +147,7 @@ export default function Home() {
 
       {/* About / history */}
       <section className="mx-auto max-w-6xl px-5 pt-16 sm:pt-20">
-        <SectionHead eyebrow="About" title="A few years to do something with the place" id="about" />
+        <SectionHead eyebrow="The building" title="About" id="about" />
         <div className="mt-6 grid gap-10 md:grid-cols-2">
           <div className="space-y-4 leading-relaxed text-ink-soft">
             <p>
