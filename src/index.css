@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+/* Hero display face. NOTE: this file is the PERSONAL USE cut of Monimer
+   Serif; buy the commercial license before the site is truly public. */
+@font-face {
+  font-family: "Monimer Serif";
+  src: url("/fonts/monimer-serif.otf") format("opentype");
+  font-weight: 400;
+  font-display: swap;
+}
+
 @theme {
   /* Cream, ink, and painted-sign red. Pulled from the corner itself:
      evening sky, old signage, newsprint. */
@@ -14,6 +23,7 @@
   --color-dusk: #363c5c; /* evening blue */
 
   --font-display: "Fraunces", "Georgia", serif;
+  --font-hero: "Monimer Serif", "Fraunces", "Georgia", serif;
   --font-body: "DM Sans", system-ui, sans-serif;
 }
 

@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { upcomingEvents } from '../data/events'
 import { tenants, tenantsFootnote, hourLines, isOpenNow } from '../data/tenants'
@@ -23,46 +24,57 @@ export default function Home() {
   )
   const upcoming = upcomingEvents().slice(0, 4)
 
+  // Respect reduced-motion: hold on the poster frame instead of playing.
+  const videoRef = useRef<HTMLVideoElement>(null)
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      videoRef.current?.pause()
+    }
+  }, [])
+
   return (
     <main>
-      {/* Masthead */}
-      <section className="mx-auto max-w-6xl px-5 pb-10 pt-12 sm:pt-16">
-        <p className="eyebrow">
-          46th Ave &amp; Judah St · {site.address.neighborhood}, San Francisco
-        </p>
-        <h1 className="mt-2 font-display text-5xl font-black leading-[0.95] tracking-tight sm:text-7xl">
-          Sunset Village
-        </h1>
-        <p className="mt-4 max-w-xl text-lg leading-relaxed text-ink-soft">
-          Music, shops, classes, and other things happening in a former church
-          a few blocks from the beach.
-        </p>
-        <div className="mt-6 flex flex-wrap gap-3">
-          <Link
-            to="/events"
-            className="rounded-[3px] bg-sunset px-5 py-3 font-semibold text-white transition hover:bg-sunset-deep"
-          >
-            See what's on
-          </Link>
-          <Link
-            to="/music-hall"
-            className="rounded-[3px] border-2 border-ink px-5 py-3 font-semibold text-ink transition hover:bg-ink hover:text-bg"
-          >
-            Book the Music Hall
-          </Link>
+      {/* Hero: full-bleed video of the sunset over the Judah terminus. */}
+      <section className="relative flex min-h-[72svh] items-center justify-center overflow-hidden border-b-2 border-ink bg-dusk sm:min-h-[80svh]">
+        <video
+          ref={videoRef}
+          className="absolute inset-0 h-full w-full object-cover"
+          src="/video/hero.mp4"
+          poster="/video/hero-poster.webp"
+          autoPlay
+          muted
+          loop
+          playsInline
+          aria-hidden
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-ink/20 to-ink/20" />
+        <div className="relative px-5 py-16 text-center text-bg">
+          <p className="eyebrow !text-bg/90 [text-shadow:0_1px_10px_rgba(20,18,35,0.8)]">
+            46th Ave &amp; Judah St · {site.address.neighborhood}, San Francisco
+          </p>
+          <h1 className="mt-3 font-hero text-6xl leading-[0.95] [text-shadow:0_2px_28px_rgba(20,18,35,0.55)] sm:text-8xl">
+            Sunset Village
+          </h1>
+          <p className="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-bg/95 [text-shadow:0_1px_10px_rgba(20,18,35,0.8)]">
+            Music, shops, classes, and other things happening in a former
+            church a few blocks from the beach.
+          </p>
+          <div className="mt-7 flex flex-wrap justify-center gap-3">
+            <Link
+              to="/events"
+              className="rounded-[3px] bg-sunset px-5 py-3 font-semibold text-white transition hover:bg-sunset-deep"
+            >
+              See what's on
+            </Link>
+            <Link
+              to="/music-hall"
+              className="rounded-[3px] bg-bg/95 px-5 py-3 font-semibold text-ink transition hover:bg-bg"
+            >
+              Book the Music Hall
+            </Link>
+          </div>
         </div>
       </section>
-
-      <figure className="mx-auto max-w-6xl px-5">
-        <img
-          src="/photos/hero-judah-sunset.webp"
-          alt="Sunset over Judah Street and the N Judah overhead wires"
-          className="max-h-[52svh] w-full border-2 border-ink object-cover"
-        />
-        <figcaption className="mt-1.5 text-xs text-ink-soft">
-          Judah Street at sunset, a block from the Village.
-        </figcaption>
-      </figure>
 
       {/* What's on */}
       <section className="mx-auto max-w-6xl px-5 pt-16 sm:pt-20">
