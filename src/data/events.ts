@@ -24,6 +24,8 @@ export interface VillageEvent {
   details?: string
   price?: string
   ticketUrl?: string
+  /** Flyer image path under public/, shown on the event's page. */
+  flyer?: string
   sample?: boolean
 }
 
@@ -37,8 +39,9 @@ export const events: VillageEvent[] = [
     summary:
       'A night of Dead music from Outer Sunset band Tangled & Free, in honor of the Forever Grateful shows happening across SF.',
     details:
-      'In honor of the Forever Grateful exhibitions and shows happening across San Francisco, a special night of Dead music from Outer Sunset band Tangled & Free.',
+      'In honor of the Forever Grateful exhibitions and shows happening across San Francisco, a special night of Dead music from Outer Sunset band Tangled & Free. 7 to 10pm.',
     price: '$10',
+    flyer: '/photos/flyer-sunset-is-dead.webp',
   },
   {
     id: 'olas-perdidas-sep-9',
@@ -58,6 +61,7 @@ export const events: VillageEvent[] = [
     summary: 'The first official show at the Music Hall.',
     details:
       'The first official show at Sunset Village Music Hall, the Outer Sunset’s newest live music venue. Olas Perdidas, with a solo set from PEÑA.',
+    flyer: '/photos/flyer-olas-pena-aug-7.webp',
   },
   {
     id: 'open-house-july-4',

@@ -4,7 +4,7 @@ import { usePageMeta } from '../lib/head'
 
 export default function EventsPage() {
   usePageMeta(
-    "What's on | Sunset Village",
+    'Calendar | Sunset Village',
     'Upcoming shows, classes, and events at Sunset Village and the Sunset Village Music Hall, 46th & Judah, San Francisco.',
   )
   const upcoming = upcomingEvents()
@@ -12,8 +12,8 @@ export default function EventsPage() {
 
   return (
     <main className="mx-auto max-w-6xl px-5 pb-20 pt-12">
-      <p className="eyebrow">Calendar</p>
-      <h1 className="mt-1 font-display text-4xl font-black sm:text-6xl">What's on</h1>
+      <p className="eyebrow">Events</p>
+      <h1 className="mt-1 font-display text-4xl font-black sm:text-6xl">Calendar</h1>
       <p className="mt-3 max-w-xl leading-relaxed text-ink-soft">
         Everything coming up at the Village. Events are announced through the{' '}
         <a href="/#newsletter" className="text-sunset underline">

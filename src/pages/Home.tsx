@@ -55,26 +55,20 @@ export default function Home() {
           <h1 className="mt-3 font-hero text-6xl leading-[0.95] [text-shadow:0_2px_28px_rgba(20,18,35,0.55)] sm:text-8xl">
             Sunset Village
           </h1>
-          <div className="mt-7 flex flex-wrap justify-center gap-3">
-            <Link
-              to="/events"
-              className="rounded-[3px] bg-sunset px-5 py-3 font-semibold text-white transition hover:bg-sunset-deep"
+          <div className="mt-7 flex justify-center">
+            <a
+              href="#calendar"
+              className="rounded-[3px] bg-sunset px-6 py-3 font-semibold text-white transition hover:bg-sunset-deep"
             >
-              See what's on
-            </Link>
-            <Link
-              to="/music-hall"
-              className="rounded-[3px] bg-bg/95 px-5 py-3 font-semibold text-ink transition hover:bg-bg"
-            >
-              Book the Music Hall
-            </Link>
+              See what's here
+            </a>
           </div>
         </div>
       </section>
 
       {/* What's on */}
       <section className="mx-auto max-w-6xl px-5 pt-16 sm:pt-20">
-        <SectionHead eyebrow="Calendar" title="What's on" />
+        <SectionHead eyebrow="Upcoming" title="Calendar" id="calendar" />
         {upcoming.length === 0 ? (
           <EmptyCalendar />
         ) : (
@@ -93,7 +87,7 @@ export default function Home() {
 
       {/* What's here */}
       <section className="mx-auto max-w-6xl px-5 pt-16 sm:pt-20">
-        <SectionHead eyebrow="Shops & spaces" title="What's here" id="whats-here" />
+        <SectionHead eyebrow="Inside the building" title="Shops & Spaces" id="shops" />
         <div className="mt-2 divide-y divide-line">
           {tenants.map((t) => (
             <article key={t.id} className="grid gap-x-8 gap-y-2 py-6 sm:grid-cols-[1fr_16rem]">
@@ -210,7 +204,7 @@ export default function Home() {
 
       {/* Visit */}
       <section className="mx-auto max-w-6xl px-5 pb-20 pt-16 sm:pt-20">
-        <SectionHead eyebrow="Visit" title="Come by" id="visit" />
+        <SectionHead eyebrow="46th & Judah" title="Visit" id="visit" />
         <div className="mt-6 grid items-start gap-10 md:grid-cols-2">
           <div>
             <p className="font-display text-2xl font-semibold leading-snug">

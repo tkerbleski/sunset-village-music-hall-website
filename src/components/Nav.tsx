@@ -1,8 +1,8 @@
 import { Link, NavLink } from 'react-router-dom'
 
 const links = [
-  { to: '/events', label: "What's on" },
-  { to: '/#whats-here', label: "What's here", plain: true },
+  { to: '/events', label: 'Calendar' },
+  { to: '/#shops', label: 'Shops & Spaces', plain: true },
   { to: '/music-hall', label: 'Music Hall' },
   { to: '/#visit', label: 'Visit', plain: true },
 ]

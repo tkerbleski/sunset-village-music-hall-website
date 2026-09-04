@@ -23,6 +23,8 @@ const NAMES = {
   'IMG_6048.jpeg': 'ocean-beach-sunset',
   '4114-Judah-St-scaled_jan2026_predevelopment.webp': 'building-today',
   'historicsunsetvillage.jpg': 'historic-1950s',
+  'IMG_9970.jpg': 'flyer-olas-pena-aug-7',
+  'Screenshot 2026-09-03 at 7.40.21 PM.png': 'flyer-sunset-is-dead',
 }
 
 const slug = (name) =>
@@ -36,7 +38,9 @@ await mkdir(OUT, { recursive: true })
 const files = (await readdir(SRC)).filter((f) => /\.(jpe?g|png|webp|heic)$/i.test(f))
 
 for (const file of files) {
-  const out = path.join(OUT, `${NAMES[file] ?? slug(file)}.webp`)
+  // macOS screenshot names carry a narrow no-break space before AM/PM.
+  const key = file.replace(/ /g, ' ')
+  const out = path.join(OUT, `${NAMES[key] ?? slug(file)}.webp`)
   const img = sharp(path.join(SRC, file)).rotate() // apply EXIF orientation
   const meta = await img.metadata()
   await img

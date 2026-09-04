@@ -21,10 +21,10 @@ export default function Footer() {
         </div>
         <nav aria-label="Footer" className="text-sm leading-7 text-ink-soft">
           <Link to="/events" className="block hover:text-ink">
-            What's on
+            Calendar
           </Link>
-          <a href="/#whats-here" className="block hover:text-ink">
-            What's here
+          <a href="/#shops" className="block hover:text-ink">
+            Shops & Spaces
           </a>
           <Link to="/music-hall" className="block hover:text-ink">
             Music Hall

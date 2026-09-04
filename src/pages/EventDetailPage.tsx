@@ -40,6 +40,13 @@ export default function EventDetailPage() {
           Example listing. Real programming is announced on the calendar.
         </p>
       )}
+      {event.flyer && (
+        <img
+          src={event.flyer}
+          alt={`Flyer for ${event.title}`}
+          className="mt-6 w-full max-w-md border-2 border-ink"
+        />
+      )}
       <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-soft">
         {event.details ?? event.summary}
       </p>
