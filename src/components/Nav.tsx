@@ -2,7 +2,7 @@ import { Link, NavLink } from 'react-router-dom'
 
 const links = [
   { to: '/events', label: 'Calendar' },
-  { to: '/#shops', label: 'Shops & Spaces', plain: true },
+  { to: '/#shops', label: 'Shops & Spaces', plain: true, mobile: true },
   { to: '/music-hall', label: 'Music Hall' },
   { to: '/#visit', label: 'Visit', plain: true },
 ]
@@ -22,15 +22,26 @@ export default function Nav() {
             l.plain ? (
               // Hash links into the homepage need a plain anchor so the
               // browser scrolls; NavLink would not re-scroll on same-page use.
-              <a key={l.label} href={l.to} className="hidden text-ink-soft transition hover:text-ink sm:inline">
-                {l.label}
+              <a
+                key={l.label}
+                href={l.to}
+                className={`${l.mobile ? '' : 'hidden sm:inline '}whitespace-nowrap text-ink-soft transition hover:text-ink`}
+              >
+                {l.mobile ? (
+                  <>
+                    <span className="sm:hidden">Shops</span>
+                    <span className="hidden sm:inline">{l.label}</span>
+                  </>
+                ) : (
+                  l.label
+                )}
               </a>
             ) : (
               <NavLink
                 key={l.label}
                 to={l.to}
                 className={({ isActive }) =>
-                  `transition hover:text-ink ${isActive ? 'font-semibold text-ink underline decoration-sunset decoration-2 underline-offset-4' : 'text-ink-soft'}`
+                  `whitespace-nowrap transition hover:text-ink ${isActive ? 'font-semibold text-ink underline decoration-sunset decoration-2 underline-offset-4' : 'text-ink-soft'}`
                 }
               >
                 {l.label}
