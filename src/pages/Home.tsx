@@ -191,8 +191,7 @@ export default function Home() {
             className="w-full border-2 border-ink"
           />
           <figcaption className="mt-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-ink-soft">
-            Your complete shopping center: Sunset Toggery and Sally's Coffee
-            Shop, Judah &amp; 45th Avenue
+            San Francisco History Center, San Francisco Public Library
           </figcaption>
         </figure>
       </section>
