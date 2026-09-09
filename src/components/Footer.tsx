@@ -32,6 +32,9 @@ export default function Footer() {
           <a href="/#newsletter" className="block hover:text-ink">
             Newsletter
           </a>
+          <a href={site.instagram} className="block hover:text-ink">
+            Instagram
+          </a>
         </nav>
         <div className="text-sm leading-relaxed text-ink-soft">
           <p>{site.transit}</p>

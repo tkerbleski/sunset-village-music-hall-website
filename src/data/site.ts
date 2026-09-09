@@ -13,9 +13,8 @@ export const site = {
   directionsUrl:
     'https://maps.google.com/?q=4114+Judah+St,+San+Francisco,+CA+94122',
   transit: 'On the N Judah. Get off at 46th Avenue and you are there.',
-  // Social handles go here once confirmed. Leave empty rather than
-  // inventing them; components hide what is missing.
-  instagram: '',
+  instagram: 'https://www.instagram.com/sunsetvillagesf/',
+  instagramHandle: '@sunsetvillagesf',
   /** Booking inquiries. Managed by the in-house music coordinator. */
   bookingEmail: 'bookings@sunsetvillagesf.com',
 } as const

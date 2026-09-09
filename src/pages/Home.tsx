@@ -209,6 +209,13 @@ export default function Home() {
           <div className="mt-6">
             <NewsletterForm />
           </div>
+          <p className="mt-4 text-sm text-bg/70">
+            Or follow{' '}
+            <a href={site.instagram} className="text-gold hover:underline">
+              {site.instagramHandle}
+            </a>
+            .
+          </p>
         </div>
       </section>
 
