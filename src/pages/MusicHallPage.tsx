@@ -77,7 +77,11 @@ export default function MusicHallPage() {
             <h2 className="font-display text-2xl font-bold">Use the hall</h2>
             <p className="mt-2 text-[15px] leading-relaxed text-ink-soft">
               Booking a show, planning a party, or teaching something? Tell us
-              what you have in mind and we'll follow up about dates.
+              what you have in mind and we'll follow up about dates. Or email{' '}
+              <a href={`mailto:${site.bookingEmail}`} className="text-sunset hover:underline">
+                {site.bookingEmail}
+              </a>
+              .
             </p>
             <div className="mt-5">
               <InquiryForm />

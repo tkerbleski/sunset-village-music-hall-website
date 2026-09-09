@@ -4,8 +4,7 @@
 // Status: 'open' | 'coming-soon'. Do not list a business until its name is
 // confirmed; the closing line in the section covers everything unannounced.
 //
-// TODO(Tom): Sunset Variety hours below are placeholders. Confirm before
-// pointing people at them.
+// Sunset Variety hours confirmed by Tom, Sep 2026: Fri to Sun, 11 to 6.
 
 export type DayHours = { open: string; close: string } | null // "11:00", 24h
 
@@ -42,15 +41,16 @@ export const tenants: Tenant[] = [
     status: 'open',
     blurb:
       'A shop of prints, ceramics, textiles, woodwork, and other goods by artists with roots in the Sunset.',
-    hours: [H('11:00', '17:00'), CLOSED, CLOSED, H('11:00', '18:00'), H('11:00', '18:00'), H('11:00', '18:00'), H('11:00', '18:00')],
+    hours: [H('11:00', '18:00'), CLOSED, CLOSED, CLOSED, CLOSED, H('11:00', '18:00'), H('11:00', '18:00')],
     link: 'https://sunsetvariety.com/',
     linkLabel: 'sunsetvariety.com',
   },
   {
-    id: 'flower-shop',
-    name: 'Flower Shop',
+    id: 'bright-moments',
+    name: 'Bright Moments Flower Shop',
     status: 'coming-soon',
-    blurb: 'A flower shop is moving in. Details soon.',
+    blurb: 'A neighborhood flower shop, opening September 12.',
+    hoursNote: 'Opens September 12',
   },
 ]
 
@@ -80,11 +80,21 @@ export function hourLines(hours: NonNullable<Tenant['hours']>): string[] {
       groups.push({ days: [day], label })
     }
   })
+  // A span crossing the week boundary (e.g. Fri to Sun) arrives as two
+  // groups, Sun plus Fri-Sat; merge them so it reads as one range.
+  if (groups.length > 1) {
+    const first = groups[0]
+    const last = groups[groups.length - 1]
+    if (first.days[0] === 0 && last.days[last.days.length - 1] === 6 && first.label === last.label) {
+      last.days.push(...first.days.map((d) => d + 7))
+      groups.shift()
+    }
+  }
   return groups.map((g) => {
     const range =
       g.days.length > 1
-        ? `${DAY_NAMES[g.days[0]]} to ${DAY_NAMES[g.days[g.days.length - 1]]}`
-        : DAY_NAMES[g.days[0]]
+        ? `${DAY_NAMES[g.days[0] % 7]} to ${DAY_NAMES[g.days[g.days.length - 1] % 7]}`
+        : DAY_NAMES[g.days[0] % 7]
     return `${range}, ${g.label}`
   })
 }

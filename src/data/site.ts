@@ -13,10 +13,11 @@ export const site = {
   directionsUrl:
     'https://maps.google.com/?q=4114+Judah+St,+San+Francisco,+CA+94122',
   transit: 'On the N Judah. Get off at 46th Avenue and you are there.',
-  // Social handles and public email go here once confirmed. Leave empty
-  // rather than inventing them; components hide what is missing.
+  // Social handles go here once confirmed. Leave empty rather than
+  // inventing them; components hide what is missing.
   instagram: '',
-  email: '',
+  /** Booking inquiries. Managed by the in-house music coordinator. */
+  bookingEmail: 'bookings@sunsetvillagesf.com',
 } as const
 
 export const fullAddress = `${site.address.street}, ${site.address.city}, ${site.address.state} ${site.address.zip}`

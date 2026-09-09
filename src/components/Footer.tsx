@@ -35,6 +35,12 @@ export default function Footer() {
         </nav>
         <div className="text-sm leading-relaxed text-ink-soft">
           <p>{site.transit}</p>
+          <p className="mt-3">
+            Bookings:{' '}
+            <a href={`mailto:${site.bookingEmail}`} className="text-sunset hover:underline">
+              {site.bookingEmail}
+            </a>
+          </p>
           <p className="mt-3 text-ink-soft/70">
             © {new Date().getFullYear()} Sunset Village, {site.corner}
           </p>
