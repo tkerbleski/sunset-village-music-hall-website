@@ -6,6 +6,9 @@ dist
 # original photos — optimized webp output lives in public/photos/
 Photo Assets/
 
+# scratch screenshots etc.
+tests/
+
 # env
 .env
 .env.local

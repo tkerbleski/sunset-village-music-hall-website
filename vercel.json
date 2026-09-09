@@ -1,3 +1,17 @@
 {
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "www.sunsetvillagesf.com" }],
+      "destination": "https://sunsetvillagesf.com/$1",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "sunsetvillage.vercel.app" }],
+      "destination": "https://sunsetvillagesf.com/$1",
+      "permanent": false
+    }
+  ],
   "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }
