@@ -107,6 +107,12 @@ const schema = [
   )`,
   // One login per person. The first one is created by signing in with
   // ADMIN_PASSWORD; after that, admins add each other under Team.
+  // Site-wide choices made in the admin, e.g. booking_form_url.
+  `create table if not exists settings (
+    key text primary key,
+    value text,
+    updated_at timestamptz not null default now()
+  )`,
   `create table if not exists admins (
     id serial primary key,
     email text not null unique,

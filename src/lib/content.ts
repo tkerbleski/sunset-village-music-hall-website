@@ -10,9 +10,11 @@ export interface Content {
   ready: boolean
   events: VillageEvent[]
   tenants: Tenant[]
+  /** Google Form that replaces the built-in booking form, if one is set in /admin. */
+  bookingFormUrl: string | null
 }
 
-let state: Content = { ready: false, events: [], tenants: [] }
+let state: Content = { ready: false, events: [], tenants: [], bookingFormUrl: null }
 const listeners = new Set<() => void>()
 let started = false
 
@@ -21,11 +23,11 @@ function load() {
   started = true
   fetch('/api/content')
     .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
-    .then((d: { events: VillageEvent[]; tenants: Tenant[] }) => {
-      state = { ready: true, events: d.events, tenants: d.tenants }
+    .then((d: { events: VillageEvent[]; tenants: Tenant[]; bookingFormUrl?: string | null }) => {
+      state = { ready: true, events: d.events, tenants: d.tenants, bookingFormUrl: d.bookingFormUrl ?? null }
     })
     .catch(() => {
-      state = { ready: true, events: bundledEvents, tenants: bundledTenants }
+      state = { ready: true, events: bundledEvents, tenants: bundledTenants, bookingFormUrl: null }
     })
     .finally(() => listeners.forEach((l) => l()))
 }

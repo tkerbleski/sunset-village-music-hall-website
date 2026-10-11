@@ -1,7 +1,7 @@
 import { upcomingEvents } from '../data/events'
 import { useContent } from '../lib/content'
 import { EventRow } from '../components/EventList'
-import InquiryForm from '../components/InquiryForm'
+import BookingForm from '../components/BookingForm'
 import { usePageMeta } from '../lib/head'
 import { site } from '../data/site'
 
@@ -85,7 +85,7 @@ export default function MusicHallPage() {
               .
             </p>
             <div className="mt-5">
-              <InquiryForm />
+              <BookingForm />
             </div>
           </div>
         </aside>

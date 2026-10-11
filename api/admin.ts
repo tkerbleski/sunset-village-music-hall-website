@@ -7,7 +7,7 @@
 // (emails), STRIPE_SECRET_KEY (online tickets).
 
 import { put } from '@vercel/blob'
-import { query, hasDb, eventFromRow, tenantFromRow } from './_lib/db.js'
+import { query, hasDb, eventFromRow, tenantFromRow, getSettings } from './_lib/db.js'
 import {
   currentAdmin,
   isMasterPassword,
@@ -400,6 +400,8 @@ export default async function handler(req: VercelReq, res: VercelRes) {
           return ok(await query(`select * from announcements order by created_at desc limit 50`))
         case 'overview':
           return ok(await overview())
+        case 'settings':
+          return ok(await getSettings())
         case 'orders':
           return ok(
             await query(
@@ -461,6 +463,19 @@ export default async function handler(req: VercelReq, res: VercelRes) {
           return ok(await upload(b))
         case 'announce':
           return ok(await sendAnnouncement(b))
+        case 'booking-form': {
+          // Blank = the site's own form (inquiries land under Bookings).
+          const url = opt(b.url, 500)
+          if (url && !/^https:\/\/(docs\.google\.com\/forms\/|forms\.gle\/)/.test(url)) {
+            throw new BadRequest('Paste the Google Form’s share link (it starts with https://docs.google.com/forms/ or https://forms.gle/)')
+          }
+          await query(
+            `insert into settings (key, value) values ('booking_form_url', $1)
+             on conflict (key) do update set value = excluded.value, updated_at = now()`,
+            [url],
+          )
+          return ok({ ok: true })
+        }
         case 'order-update':
           await query(
             `update orders set checked_in = $2,

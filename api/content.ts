@@ -2,7 +2,7 @@
 // Public read of the events calendar and the shops list for the site.
 // CDN-cached for 30 seconds, so admin edits show up within about a minute.
 
-import { query, hasDb, eventFromRow, tenantFromRow } from './_lib/db.js'
+import { query, hasDb, eventFromRow, tenantFromRow, getSettings } from './_lib/db.js'
 import { hasStripe, soldByEvent } from './_lib/stripe.js'
 import type { VercelReq, VercelRes } from './_lib/http.js'
 
@@ -22,16 +22,19 @@ export default async function handler(req: VercelReq, res: VercelRes) {
   if (!hasDb()) return res.status(503).json({ error: 'Not configured' })
 
   try {
-    const [events, tenants, sold] = await Promise.all([
+    const [events, tenants, sold, settings] = await Promise.all([
       query(`select * from events order by date`),
       query(`select * from tenants order by sort, name`),
       hasStripe() ? soldByEvent() : new Map<string, number>(),
+      getSettings(),
     ])
     // Browsers always ask for fresh data, so the owner sees an edit as soon as
     // they reload. Only Vercel's CDN caches (briefly), which keeps it fast.
     res.setHeader('Cache-Control', 'no-cache')
     res.setHeader('Vercel-CDN-Cache-Control', 'max-age=30, stale-while-revalidate=60')
-    return res.status(200).json({ events: events.map((r) => withTickets(eventFromRow(r), sold)), tenants: tenants.map(tenantFromRow) })
+    return res.status(200).json({ events: events.map((r) => withTickets(eventFromRow(r), sold)), tenants: tenants.map(tenantFromRow),
+      bookingFormUrl: settings.booking_form_url ?? null,
+    })
   } catch {
     return res.status(502).json({ error: 'Could not load content' })
   }

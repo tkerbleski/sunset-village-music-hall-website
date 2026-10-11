@@ -1,10 +1,10 @@
 // Bookings: inquiries sent from the Music Hall form. Each can be marked
 // replied / booked / declined and carry private notes.
 
-import { useState } from 'react'
+import { useState, type FormEvent } from 'react'
 import { fmtDateLong } from '../data/events'
 import { getJson, postJson, type Booking } from './api'
-import { Button, ErrorNote, PageHead, fmtWhen, input, useLoad } from './ui'
+import { Button, ErrorNote, Field, Notice, PageHead, fmtWhen, input, useLoad } from './ui'
 
 const STATUSES: { value: Booking['status']; label: string }[] = [
   { value: 'new', label: 'New' },
@@ -132,6 +132,82 @@ function BookingCard({ b, onChange }: { b: Booking; onChange: () => void }) {
   )
 }
 
+// Which form the Music Hall page shows: this site's own (inquiries land on
+// this screen) or a Google Form (responses go to the owner's Google account).
+function FormChoice({ onSignedOut }: { onSignedOut: () => void }) {
+  const { data, reload } = useLoad(() => getJson<Record<string, string>>('settings'), onSignedOut)
+  const current = data?.booking_form_url ?? ''
+  const [mode, setMode] = useState<'site' | 'google' | null>(null)
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState('')
+  const [saved, setSaved] = useState(false)
+  if (!data) return null
+  const shown = mode ?? (current ? 'google' : 'site')
+
+  async function save(e?: FormEvent<HTMLFormElement>) {
+    e?.preventDefault()
+    const url = e ? String(new FormData(e.currentTarget).get('url') ?? '') : ''
+    setBusy(true)
+    setError('')
+    setSaved(false)
+    try {
+      await postJson('booking-form', { url })
+      setSaved(true)
+      setMode(null)
+      reload()
+    } catch (err) {
+      setError((err as Error).message)
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  return (
+    <details className="mb-8 border-2 border-ink bg-card p-4" open={mode !== null || undefined}>
+      <summary className="cursor-pointer font-semibold">
+        Booking form on the website:{' '}
+        <span className="text-sunset">{current ? 'your Google Form' : 'built-in form'}</span>
+      </summary>
+      <div className="mt-4 space-y-4">
+        <div className="flex flex-wrap gap-2">
+          <Button kind={shown === 'site' ? 'primary' : 'secondary'} className="py-1.5 text-sm" onClick={() => setMode('site')}>
+            Built-in form
+          </Button>
+          <Button kind={shown === 'google' ? 'primary' : 'secondary'} className="py-1.5 text-sm" onClick={() => setMode('google')}>
+            Google Form
+          </Button>
+        </div>
+        {shown === 'site' ? (
+          <>
+            <p className="text-[15px] text-ink-soft">
+              {current ? 'The site’s own form. Inquiries show up on this page.' : 'The site uses its own form now. Inquiries show up on this page.'}
+            </p>
+            {current && (
+              <Button disabled={busy} onClick={() => save()}>
+                {busy ? 'Saving…' : 'Switch back to the built-in form'}
+              </Button>
+            )}
+          </>
+        ) : (
+          <form onSubmit={save} className="space-y-3">
+            <Field
+              label="Google Form link"
+              hint="In Google Forms click Send, then the link icon. Untick “Shorten URL” so the form shows right on the page, then copy and paste it here. Responses go to your Google Form, not this page."
+            >
+              <input name="url" type="url" required defaultValue={current} placeholder="https://docs.google.com/forms/…" className={input} />
+            </Field>
+            <Button type="submit" disabled={busy}>
+              {busy ? 'Saving…' : current ? 'Save link' : 'Use this Google Form'}
+            </Button>
+          </form>
+        )}
+        <ErrorNote>{error}</ErrorNote>
+        {saved && <Notice>Saved. The Music Hall page updates within a minute.</Notice>}
+      </div>
+    </details>
+  )
+}
+
 export default function BookingsAdmin({ onSignedOut, onChange }: { onSignedOut: () => void; onChange: () => void }) {
   const { data, error, reload } = useLoad(() => getJson<Booking[]>('bookings'), onSignedOut)
   const [filter, setFilter] = useState<'open' | 'all'>('open')
@@ -145,6 +221,7 @@ export default function BookingsAdmin({ onSignedOut, onChange }: { onSignedOut: 
   return (
     <>
       <PageHead title="Bookings" sub="Inquiries sent through the form on the Music Hall page." />
+      <FormChoice onSignedOut={onSignedOut} />
       <div className="mb-5 flex gap-2">
         {(['open', 'all'] as const).map((f) => (
           <Button key={f} kind={filter === f ? 'primary' : 'secondary'} onClick={() => setFilter(f)} className="py-1.5 text-sm">

@@ -14,6 +14,12 @@ export async function query<T = Record<string, unknown>>(text: string, params: u
   return (await client.query(text, params)) as T[]
 }
 
+/** Site settings edited in the admin, as {key: value}. */
+export async function getSettings(): Promise<Record<string, string>> {
+  const rows = await query<{ key: string; value: string | null }>(`select key, value from settings`)
+  return Object.fromEntries(rows.filter((r) => r.value).map((r) => [r.key, r.value!]))
+}
+
 // Row → the shapes the frontend uses (src/data/events.ts, src/data/tenants.ts).
 // Empty columns are dropped so optional fields stay undefined, as in the
 // original hand-written data.
