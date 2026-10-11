@@ -1,7 +1,20 @@
 import { Link } from 'react-router-dom'
-import { fmtDate, type VillageEvent } from '../data/events'
+import { dollars, fmtDate, sellsOnline, type VillageEvent } from '../data/events'
 
 function TicketAction({ e, dark }: { e: VillageEvent; dark?: boolean }) {
+  if (e.ticketPrice && sellsOnline(e)) {
+    if (e.ticketsLeft === 0) {
+      return <span className={`text-sm font-semibold ${dark ? 'text-bg/70' : 'text-ink-soft'}`}>Sold out</span>
+    }
+    return (
+      <Link
+        to={`/events/${e.id}#tickets`}
+        className="inline-block rounded-[3px] bg-sunset px-4 py-2 text-sm font-semibold text-white transition hover:bg-sunset-deep"
+      >
+        Tickets {dollars(e.ticketPrice)}
+      </Link>
+    )
+  }
   if (e.ticketUrl) {
     return (
       <a

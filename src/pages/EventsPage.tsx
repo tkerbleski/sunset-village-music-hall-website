@@ -1,14 +1,16 @@
 import { upcomingEvents, pastEvents } from '../data/events'
 import { EventRow, EmptyCalendar } from '../components/EventList'
 import { usePageMeta } from '../lib/head'
+import { useContent } from '../lib/content'
 
 export default function EventsPage() {
   usePageMeta(
     'Calendar | Sunset Village',
     'Upcoming shows, classes, and events at Sunset Village and the Sunset Village Music Hall, 46th & Judah, San Francisco.',
   )
-  const upcoming = upcomingEvents()
-  const past = pastEvents()
+  const { ready, events } = useContent()
+  const upcoming = upcomingEvents(events)
+  const past = pastEvents(events)
 
   return (
     <main className="mx-auto max-w-6xl px-5 pb-20 pt-12">
@@ -24,7 +26,7 @@ export default function EventsPage() {
 
       <section className="mt-10 border-t-2 border-ink pt-4">
         <h2 className="eyebrow">Upcoming</h2>
-        {upcoming.length === 0 ? (
+        {!ready ? null : upcoming.length === 0 ? (
           <EmptyCalendar />
         ) : (
           <div className="divide-y divide-line">

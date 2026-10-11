@@ -1,4 +1,5 @@
 import { upcomingEvents } from '../data/events'
+import { useContent } from '../lib/content'
 import { EventRow } from '../components/EventList'
 import InquiryForm from '../components/InquiryForm'
 import { usePageMeta } from '../lib/head'
@@ -18,7 +19,7 @@ export default function MusicHallPage() {
     'Sunset Village Music Hall | 46th & Judah, San Francisco',
     'A music venue and event space in a former church sanctuary at 4114 Judah St. About 2,500 sq ft. Inquire about shows, workshops, and private events.',
   )
-  const hallEvents = upcomingEvents().filter((e) => e.venue === 'Music Hall').slice(0, 3)
+  const hallEvents = upcomingEvents(useContent().events).filter((e) => e.venue === 'Music Hall').slice(0, 3)
 
   return (
     <main className="mx-auto max-w-6xl px-5 pb-20 pt-12">

@@ -1,5 +1,6 @@
-// The shops and spaces inside the building. Single source for the
-// "What's here" listings.
+// The shops and spaces inside the building. Shops are now managed in /admin
+// and stored in the database; the list below is only the initial seed
+// (npm run db:setup) and the fallback for local dev.
 //
 // Status: 'open' | 'coming-soon'. Do not list a business until its name is
 // confirmed; the closing line in the section covers everything unannounced.

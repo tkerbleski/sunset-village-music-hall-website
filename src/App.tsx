@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
@@ -7,6 +7,9 @@ import Home from './pages/Home'
 import EventsPage from './pages/EventsPage'
 import EventDetailPage from './pages/EventDetailPage'
 import MusicHallPage from './pages/MusicHallPage'
+
+// The admin area only loads when someone visits /admin.
+const AdminApp = lazy(() => import('./admin/AdminApp'))
 
 /** Scroll to top on route change, or to the hash target when there is one. */
 function ScrollManager() {
@@ -21,10 +24,9 @@ function ScrollManager() {
   return null
 }
 
-export default function App() {
+function PublicSite() {
   return (
-    <BrowserRouter>
-      <ScrollManager />
+    <>
       <Nav />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -35,6 +37,25 @@ export default function App() {
       </Routes>
       <Footer />
       <NewsletterPopup />
+    </>
+  )
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <ScrollManager />
+      <Routes>
+        <Route
+          path="/admin/*"
+          element={
+            <Suspense fallback={null}>
+              <AdminApp />
+            </Suspense>
+          }
+        />
+        <Route path="*" element={<PublicSite />} />
+      </Routes>
     </BrowserRouter>
   )
 }

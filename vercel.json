@@ -2,16 +2,48 @@
   "redirects": [
     {
       "source": "/(.*)",
-      "has": [{ "type": "host", "value": "www.sunsetvillagesf.com" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "www.sunsetvillagesf.com"
+        }
+      ],
       "destination": "https://sunsetvillagesf.com/$1",
       "permanent": true
     },
     {
       "source": "/(.*)",
-      "has": [{ "type": "host", "value": "sunsetvillage.vercel.app" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "sunsetvillage.vercel.app"
+        }
+      ],
       "destination": "https://sunsetvillagesf.com/$1",
       "permanent": false
     }
   ],
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/backup",
+      "schedule": "0 16 * * 1"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/admin(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
+    }
+  ]
 }

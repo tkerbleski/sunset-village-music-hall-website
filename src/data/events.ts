@@ -1,17 +1,11 @@
-// The events calendar. This file is the single source for every event
-// listing on the site (homepage, /events, event pages).
+// The events calendar. Events are now managed in /admin and stored in the
+// database; the list below is only the initial seed (npm run db:setup) and
+// the fallback for local dev. Editing it does NOT change the live site.
 //
-// To add an event: copy an entry, give it a unique id (it becomes the URL,
-// /events/<id>), set the date as yyyy-mm-dd. Upcoming vs past is computed
-// from the date automatically.
-//
-// Events marked `sample: true` are placeholders that show how the calendar
-// works. They render with a visible "example" label. Delete them as real
-// programming is confirmed.
-//
-// Tickets: add `ticketUrl` (a Stripe payment link, Eventbrite page, etc.)
-// and the listing shows a "Tickets" button. `price` alone shows
-// "$X at the door".
+// Upcoming vs past is computed from the date. `ticketPrice` (cents) sells
+// tickets on the site through Stripe; `ticketUrl` links out to another
+// ticket seller instead; `price` alone shows "$X at the door".
+// `sample: true` renders an "example listing" label.
 
 export interface VillageEvent {
   id: string
@@ -26,6 +20,11 @@ export interface VillageEvent {
   ticketUrl?: string
   /** Flyer image path under public/, shown on the event's page. */
   flyer?: string
+  /** Online ticket price in cents (sold on this site via Stripe). */
+  ticketPrice?: number
+  /** Tickets available online. Admin only; the public site gets ticketsLeft. */
+  capacity?: number
+  ticketsLeft?: number
   sample?: boolean
 }
 
@@ -80,13 +79,14 @@ const todayISO = () => {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
 }
 
-export const upcomingEvents = () =>
+/** Online sales are open: a price is set and the event hasn't happened. */
+export const sellsOnline = (e: VillageEvent) => Boolean(e.ticketPrice) && e.date >= todayISO()
+
+export const upcomingEvents = (events: VillageEvent[]) =>
   events.filter((e) => e.date >= todayISO()).sort((a, b) => a.date.localeCompare(b.date))
 
-export const pastEvents = () =>
+export const pastEvents = (events: VillageEvent[]) =>
   events.filter((e) => e.date < todayISO()).sort((a, b) => b.date.localeCompare(a.date))
-
-export const eventById = (id: string) => events.find((e) => e.id === id)
 
 export function fmtDate(iso: string): string {
   const [y, m, d] = iso.split('-').map(Number)
@@ -106,3 +106,5 @@ export function fmtDateLong(iso: string): string {
     year: 'numeric',
   })
 }
+
+export const dollars = (cents: number) => `$${(cents / 100).toFixed(cents % 100 === 0 ? 0 : 2)}`

@@ -1,7 +1,8 @@
 import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { upcomingEvents } from '../data/events'
-import { tenants, tenantsFootnote, hourLines, isOpenNow } from '../data/tenants'
+import { tenantsFootnote, hourLines, isOpenNow } from '../data/tenants'
+import { useContent } from '../lib/content'
 import { site } from '../data/site'
 import { EventRow, EmptyCalendar } from '../components/EventList'
 import StatusTag from '../components/StatusTag'
@@ -22,7 +23,8 @@ export default function Home() {
     'Sunset Village | Music, shops, and events at 46th & Judah, Outer Sunset',
     'Sunset Village is a collection of small shops, music, classes, and events in a former church at 4114 Judah St, San Francisco. Home of the Sunset Village Music Hall.',
   )
-  const upcoming = upcomingEvents().slice(0, 4)
+  const { ready, events, tenants } = useContent()
+  const upcoming = upcomingEvents(events).slice(0, 4)
 
   // Respect reduced-motion: hold on the poster frame instead of playing.
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -69,7 +71,7 @@ export default function Home() {
       {/* What's on */}
       <section className="mx-auto max-w-6xl px-5 pt-16 sm:pt-20">
         <SectionHead eyebrow="Upcoming" title="Calendar" id="calendar" />
-        {upcoming.length === 0 ? (
+        {!ready ? null : upcoming.length === 0 ? (
           <EmptyCalendar />
         ) : (
           <div className="mt-2 divide-y divide-line">

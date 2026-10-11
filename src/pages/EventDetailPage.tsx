@@ -1,15 +1,20 @@
 import { Link, useParams } from 'react-router-dom'
-import { eventById, fmtDateLong } from '../data/events'
+import { dollars, fmtDateLong, sellsOnline } from '../data/events'
+import { useContent } from '../lib/content'
 import { usePageMeta } from '../lib/head'
 import { site } from '../data/site'
+import TicketBox from '../components/TicketBox'
 
 export default function EventDetailPage() {
   const { id } = useParams()
-  const event = id ? eventById(id) : undefined
+  const { ready, events } = useContent()
+  const event = events.find((e) => e.id === id)
   usePageMeta(
     event ? `${event.title} | Sunset Village` : 'Event | Sunset Village',
     event?.summary,
   )
+
+  if (!ready) return <main className="min-h-[60vh]" />
 
   if (!event) {
     return (
@@ -55,14 +60,16 @@ export default function EventDetailPage() {
           <span className="font-semibold text-ink">Where:</span> {event.venue}, Sunset Village,{' '}
           {site.address.street}
         </p>
-        {event.price && (
+        {(event.price || event.ticketPrice) && (
           <p>
-            <span className="font-semibold text-ink">Price:</span> {event.price}
+            <span className="font-semibold text-ink">Price:</span> {event.price || dollars(event.ticketPrice!)}
           </p>
         )}
       </div>
-      <div className="mt-6">
-        {event.ticketUrl ? (
+      <div id="tickets" className="mt-6 scroll-mt-24">
+        {event.ticketPrice && sellsOnline(event) ? (
+          <TicketBox event={{ ...event, ticketPrice: event.ticketPrice }} />
+        ) : event.ticketUrl ? (
           <a
             href={event.ticketUrl}
             className="inline-block rounded-[3px] bg-sunset px-6 py-3 font-semibold text-white transition hover:bg-sunset-deep"

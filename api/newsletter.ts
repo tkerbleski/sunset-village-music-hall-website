@@ -1,53 +1,62 @@
-// Vercel serverless function: POST /api/newsletter
-// Adds a signup to a Resend Audience when NEWSLETTER_AUDIENCE_ID is set;
-// always forwards the signup to the inquiry inbox as a backup record.
+// Vercel serverless function: /api/newsletter
+//   POST {email}               sign up (saved to this site's database)
+//   GET/POST ?unsubscribe=…    unsubscribe link from announcement emails
+//                              (POST is the one-click List-Unsubscribe form)
+// The list lives only in this site's database; Resend is used just to send.
 
-interface VercelReq {
-  method?: string
-  body?: Record<string, unknown>
-}
-interface VercelRes {
-  status: (code: number) => VercelRes
-  json: (data: unknown) => void
-}
+import { query, hasDb } from './_lib/db.js'
+import { sendEmail, hasEmail } from './_lib/email.js'
+import { str, isEmail, type VercelReq, type VercelRes } from './_lib/http.js'
+
+const page = (msg: string) => `<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sunset Village</title>
+<body style="font-family:Georgia,serif;background:#f9f4e8;color:#211e2b;text-align:center;padding:80px 20px">
+<h1 style="font-size:28px">${msg}</h1>
+<p><a href="/" style="color:#cc4b26">Back to Sunset Village</a></p></body>`
 
 export default async function handler(req: VercelReq, res: VercelRes) {
+  const token = str(req.query?.unsubscribe)
+  if (token) {
+    if (!hasDb()) return res.status(500).json({ error: 'Not configured' })
+    await query(
+      `update subscribers set unsubscribed_at = now() where token::text = $1 and unsubscribed_at is null`,
+      [token],
+    ).catch(() => {})
+    if (req.method === 'POST') return res.status(200).json({ ok: true })
+    res.setHeader('Content-Type', 'text/html; charset=utf-8')
+    return res.status(200).send(page('You’re unsubscribed.'))
+  }
+
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' })
+  if (!hasDb()) return res.status(500).json({ error: 'Newsletter endpoint not configured' })
 
-  const { RESEND_API_KEY, INQUIRY_TO, INQUIRY_FROM, NEWSLETTER_AUDIENCE_ID } = process.env
-  if (!RESEND_API_KEY || !INQUIRY_TO || !INQUIRY_FROM) {
-    return res.status(500).json({ error: 'Newsletter endpoint not configured' })
-  }
+  const email = str(req.body?.email).trim().toLowerCase().slice(0, 200)
+  if (!isEmail(email)) return res.status(400).json({ error: 'Invalid email' })
 
-  const email = String(req.body?.email ?? '').slice(0, 200)
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    return res.status(400).json({ error: 'Invalid email' })
-  }
+  // Signing up again re-subscribes someone who had unsubscribed.
+  const saved = await query(
+    `insert into subscribers (email) values ($1)
+     on conflict (email) do update set unsubscribed_at = null`,
+    [email],
+  )
+    .then(() => true)
+    .catch((e) => {
+      console.error('newsletter: database save failed', e)
+      return false
+    })
 
-  const headers = {
-    Authorization: `Bearer ${RESEND_API_KEY}`,
-    'Content-Type': 'application/json',
-  }
+  // If the database is down, email the signup to the inbox so it isn't lost.
+  const emailed =
+    !saved &&
+    hasEmail() &&
+    Boolean(process.env.INQUIRY_TO) &&
+    (await sendEmail({
+      to: [process.env.INQUIRY_TO!],
+      subject: `Newsletter signup (not saved, add it in the admin) — ${email}`,
+      text: `The website couldn't save this newsletter signup to the database, so here it is by email.\n\nAdd it under Newsletter in https://sunsetvillagesf.com/admin:\n\n${email}`,
+    }))
 
-  if (NEWSLETTER_AUDIENCE_ID) {
-    await fetch(`https://api.resend.com/audiences/${NEWSLETTER_AUDIENCE_ID}/contacts`, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({ email, unsubscribed: false }),
-    }).catch(() => {}) // backup email below still records the signup
-  }
-
-  const send = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers,
-    body: JSON.stringify({
-      from: INQUIRY_FROM,
-      to: [INQUIRY_TO],
-      subject: `Sunset Village newsletter signup — ${email}`,
-      text: `New newsletter signup: ${email}`,
-    }),
-  })
-
-  if (!send.ok) return res.status(502).json({ error: 'Signup failed' })
+  if (!saved && !emailed) return res.status(502).json({ error: 'Signup failed' })
   return res.status(200).json({ ok: true })
 }
