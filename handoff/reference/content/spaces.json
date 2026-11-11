@@ -1,0 +1,44 @@
+{
+  "$note": "Two neighbor businesses today; the grid must handle more (auto-fill, min 300px cards). Always end the grid with the dashed 'Coming soon' card.",
+  "spaces": [
+    {
+      "id": "music-hall",
+      "isMusicHall": true,
+      "name": "Sunset Village Music Hall",
+      "type": "Live music venue",
+      "unit": "Unit [#]",
+      "blurb": "Bands, DJ nights and community events. That’s us.",
+      "hours": "Show nights · see calendar",
+      "website": "/events",
+      "instagram": null,
+      "photo": null,
+      "fill": "fog"
+    },
+    {
+      "id": "business-1",
+      "isMusicHall": false,
+      "name": "[Business name]",
+      "type": "[Business type]",
+      "unit": "Unit [#]",
+      "blurb": "[One line about what they do and why to stop by.]",
+      "hours": "[Hours]",
+      "website": null,
+      "instagram": null,
+      "photo": null,
+      "fill": "teal"
+    },
+    {
+      "id": "business-2",
+      "isMusicHall": false,
+      "name": "[Business name]",
+      "type": "[Business type]",
+      "unit": "Unit [#]",
+      "blurb": "[One line about what they do and why to stop by.]",
+      "hours": "[Hours]",
+      "website": null,
+      "instagram": null,
+      "photo": null,
+      "fill": "pink"
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+// Layout samples from the design handoff (handoff/reference/content/events.json).
+// Only used in local dev with SAMPLE_CONTENT=1 and no DATABASE_URL, to check
+// pages against the reference screenshots. Never shown on the live site.
+import type { VillageEvent } from './events'
+
+export const sampleEvents: VillageEvent[] = [
+  {
+    "id": "fog-machine-11-06",
+    "title": "Fog Machine",
+    "date": "2026-11-06",
+    "category": "music",
+    "kind": "Live music · Indie rock",
+    "subtitle": "with Low Tide Choir",
+    "time": "Doors 7pm · Show 8pm",
+    "price": "$18 adv · $22 door",
+    "cta": "Get tickets",
+    "venue": "Music Hall",
+    "summary": "with Low Tide Choir",
+    "sample": true
+  },
+  {
+    "id": "night-swim-11-07",
+    "title": "Night Swim",
+    "date": "2026-11-07",
+    "category": "dj",
+    "kind": "DJ night · Disco & boogie",
+    "subtitle": "Resident DJs all night",
+    "time": "Doors 9pm · Til 2am",
+    "price": "$12",
+    "cta": "Get tickets",
+    "venue": "Music Hall",
+    "summary": "Resident DJs all night",
+    "sample": true
+  },
+  {
+    "id": "intro-to-djing-11-12",
+    "title": "Intro to DJing",
+    "date": "2026-11-12",
+    "category": "workshop",
+    "kind": "Workshop · Beginners",
+    "subtitle": "Bring headphones, we have decks",
+    "time": "6:30pm",
+    "price": "$25",
+    "cta": "Sign up",
+    "venue": "Music Hall",
+    "summary": "Bring headphones, we have decks",
+    "sample": true
+  },
+  {
+    "id": "sunday-songwriters-round-11-15",
+    "title": "Sunday Songwriters Round",
+    "date": "2026-11-15",
+    "category": "community",
+    "kind": "Community · Acoustic",
+    "subtitle": "Four local writers, one stage",
+    "time": "Doors 4:30pm · Show 5pm",
+    "price": "Free · RSVP",
+    "cta": "RSVP",
+    "venue": "Music Hall",
+    "summary": "Four local writers, one stage",
+    "sample": true
+  },
+  {
+    "id": "cypress-drive-11-20",
+    "title": "Cypress Drive",
+    "date": "2026-11-20",
+    "category": "music",
+    "kind": "Live music · Surf rock",
+    "subtitle": "with The Judahs",
+    "time": "Doors 7pm · Show 8pm",
+    "price": "$20 adv · $25 door",
+    "cta": "Get tickets",
+    "venue": "Music Hall",
+    "summary": "with The Judahs",
+    "sample": true
+  },
+  {
+    "id": "leftovers-swap-meet-11-28",
+    "title": "Leftovers Swap Meet",
+    "date": "2026-11-28",
+    "category": "community",
+    "kind": "Community · Market",
+    "subtitle": "Records, gear, zines, plants",
+    "time": "11am–3pm",
+    "price": "Free",
+    "cta": "RSVP",
+    "venue": "Music Hall",
+    "summary": "Records, gear, zines, plants",
+    "sample": true
+  },
+  {
+    "id": "marine-layer-quartet-12-04",
+    "title": "Marine Layer Quartet",
+    "date": "2026-12-04",
+    "category": "music",
+    "kind": "Live music · Jazz",
+    "subtitle": "Two sets, seated show",
+    "time": "Doors 7pm",
+    "price": "$22",
+    "cta": "Get tickets",
+    "venue": "Music Hall",
+    "summary": "Two sets, seated show",
+    "sample": true
+  },
+  {
+    "id": "outer-lands-dance-party-12-12",
+    "title": "Outer Lands Dance Party",
+    "date": "2026-12-12",
+    "category": "dj",
+    "kind": "DJ night · House",
+    "subtitle": "Guest DJ [TBA]",
+    "time": "Doors 9pm",
+    "price": "$15",
+    "cta": "Get tickets",
+    "venue": "Music Hall",
+    "summary": "Guest DJ [TBA]",
+    "sample": true
+  },
+  {
+    "id": "make-a-band-morning-12-13",
+    "title": "Make-a-Band Morning",
+    "date": "2026-12-13",
+    "category": "workshop",
+    "kind": "Workshop · Kids & families",
+    "subtitle": "Instruments provided",
+    "time": "10am",
+    "price": "$10",
+    "cta": "Sign up",
+    "venue": "Music Hall",
+    "summary": "Instruments provided",
+    "sample": true
+  },
+  {
+    "id": "last-light-of-2026-12-31",
+    "title": "Last Light of 2026",
+    "date": "2026-12-31",
+    "category": "dj",
+    "kind": "DJ night · New Year’s Eve",
+    "subtitle": "Countdown, confetti, fog",
+    "time": "Doors 9pm",
+    "price": "$35",
+    "cta": "Get tickets",
+    "venue": "Music Hall",
+    "summary": "Countdown, confetti, fog",
+    "sample": true
+  }
+]

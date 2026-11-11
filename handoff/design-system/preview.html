@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sunset Village Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=DM+Mono:wght@400;500&family=Montserrat:wght@600;700&display=swap">
+<style>
+/* Plain-CSS mirror of design-system/globals.css, for viewing without a build. */
+:root{--ink:#18302E;--ink-2:#4A5856;--ink-hover:#24423F;--fog:#EEEAE2;--paper:#F8F6F1;--sand:#E2DDD3;--line:#C9C2B4;--mist:#C9D3CF;--rule:#3C524F;--sun:#FF6A3D;--yellow:#FFC93C;--teal:#8FD3CB;--pink:#F6B3BF;--sea:#0E5E66;--map:#DCE7E3;--danger:#FBE3DC;--danger-text:#9E3212;--warning-text:#7A5200;
+--display:'Bricolage Grotesque',system-ui,sans-serif;--label:'Montserrat',system-ui,sans-serif;--mono:'DM Mono',ui-monospace,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fog);color:var(--ink);font-family:var(--display);font-size:17px;line-height:1.5}
+a{color:var(--sea)}
+.wrap{max-width:1280px;margin:0 auto;padding:0 max(24px,env(safe-area-inset-left,0px))}
+.eyebrow{display:flex;align-items:center;gap:10px;margin:0 0 12px;font-family:var(--label);font-weight:700;font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-2)}
+.label-sm{font-family:var(--label);font-weight:700;font-size:11px;letter-spacing:.22em;text-transform:uppercase}
+.kind{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+.meta{font-family:var(--mono);font-size:13px;line-height:1.6}
+.ink{background:var(--ink);color:var(--fog)}
+section.block{padding:56px 0;border-bottom:1px solid var(--line)}
+h2.sec{margin:0 0 28px;font-size:clamp(2.4rem,5vw,4rem);line-height:.95;font-weight:800;letter-spacing:-.03em}
+h3.sub{margin:32px 0 14px;font-family:var(--label);font-weight:700;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-2)}
+.grid{display:grid;gap:16px}
+.swatches{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.sw{border:2px solid var(--ink);border-radius:18px;overflow:hidden;background:var(--paper)}
+.sw div{height:84px;border-bottom:2px solid var(--ink)}
+.sw p{margin:0;padding:10px 12px;font-size:14px;line-height:1.35}
+.sw p b{display:block;font-size:15px}
+.sw p span{font-family:var(--mono);font-size:12px;color:var(--ink-2)}
+.typerow{display:grid;grid-template-columns:200px 1fr;gap:20px;align-items:baseline;padding:14px 0;border-top:1px solid var(--line)}
+.typerow code{font-family:var(--mono);font-size:12px;color:var(--ink-2)}
+.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:700;border:2px solid var(--ink);border-radius:999px;font-family:inherit;font-size:16px;min-height:44px;padding:0 20px;cursor:pointer;line-height:1.2}
+.btn-ink{background:var(--ink);color:var(--fog)}.btn-sun{background:var(--sun);color:var(--ink)}.btn-line{background:transparent;color:var(--ink)}.btn-ghost{background:transparent;border-color:transparent;color:var(--ink)}
+.btn-sm{min-height:36px;font-size:14px;padding:0 16px}.btn-lg{min-height:52px;font-size:18px;padding:0 28px}
+.ink .btn-ink{background:var(--fog);color:var(--ink);border-color:var(--fog)}.ink .btn-line{color:var(--fog);border-color:var(--fog)}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.panel{border-radius:28px;padding:28px}
+.field{font-family:inherit;font-size:17px;color:var(--ink);background:#fff;border:2px solid var(--ink);border-radius:14px;padding:12px 14px;min-height:50px;width:100%}
+.f{display:flex;flex-direction:column;gap:6px}.f label{font-weight:700;font-size:15px}
+.check{display:flex;align-items:center;gap:10px;min-height:48px;padding:8px 14px;border:2px solid var(--ink);border-radius:14px;background:#fff;font-weight:600}
+.check input{width:20px;height:20px;accent-color:var(--ink)}
+.chip{font-family:inherit;font-size:16px;font-weight:700;min-height:44px;padding:0 20px;border-radius:999px;border:2px solid var(--ink);background:transparent;color:var(--ink)}
+.chip.on{background:var(--ink);color:var(--fog)}
+.tag{border:2px solid var(--ink);border-radius:999px;padding:5px 12px;font-weight:600;font-size:14px}
+.card{background:var(--paper);border:2px solid var(--ink);border-radius:24px}
+.stub{border-radius:12px;width:108px;padding:12px 0;display:flex;flex-direction:column;align-items:center;line-height:1;
+-webkit-mask:radial-gradient(circle 9px at 0 50%,#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 9px at 100% 50%,#0000 98%,#000) right/51% 100% no-repeat;
+mask:radial-gradient(circle 9px at 0 50%,#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 9px at 100% 50%,#0000 98%,#000) right/51% 100% no-repeat}
+.stub span{font-family:var(--label);font-weight:700;font-size:11px;letter-spacing:.2em}.stub b{font-size:44px;font-weight:800;letter-spacing:-.03em;margin:4px 0}
+.radii{display:flex;flex-wrap:wrap;gap:14px}.radii div{width:110px;height:80px;border:2px solid var(--ink);background:var(--paper);display:flex;align-items:flex-end;padding:8px;font-family:var(--mono);font-size:12px}
+.space{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end}.space div{background:var(--sun);border:2px solid var(--ink)}.space span{display:block;font-family:var(--mono);font-size:12px;margin-top:6px}
+/* internal UI */
+.app{border:2px solid var(--ink);border-radius:28px;overflow:hidden;background:var(--fog)}
+.appbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 20px;flex-wrap:wrap}
+.appbar nav{display:flex;gap:4px;font-size:15px;font-weight:600}.appbar nav a{color:var(--fog);text-decoration:none;padding:8px 14px;border-radius:999px}.appbar nav a.cur{background:rgba(238,234,226,.14)}
+.appbody{padding:24px;display:flex;flex-direction:column;gap:20px;font-size:15px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+.stat{background:var(--paper);border:1px solid var(--line);border-radius:24px;padding:16px 18px}
+.stat b{display:block;font-size:36px;font-weight:800;letter-spacing:-.02em;line-height:1.1}
+.tbl{background:var(--paper);border:1px solid var(--line);border-radius:24px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:640px}
+th{text-align:left;font-family:var(--label);font-weight:700;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-2);padding:14px 16px;border-bottom:1px solid var(--line)}
+td{padding:12px 16px;border-bottom:1px solid var(--line)}tr:last-child td{border-bottom:0}
+@media (max-width:600px){.typerow{grid-template-columns:minmax(0,1fr);gap:4px}.typerow>span{min-width:0;overflow-wrap:anywhere}}
+.pill{display:inline-block;border-radius:999px;padding:3px 10px;font-weight:600;font-size:13px;color:var(--ink)}
+</style>
+</head>
+<body>
+<header class="ink"><div class="wrap" style="padding-block:40px 48px;display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end;justify-content:space-between">
+<div><p class="eyebrow" style="color:var(--yellow)"><svg width="16" height="16" viewBox="-12 -12 24 24" fill="#FFC93C"><path d="M0 -12 L1.7 -1.7 L12 0 L1.7 1.7 L0 12 L-1.7 1.7 L-12 0 L-1.7 -1.7Z"/><path d="M0 -6 L1 -1 L6 0 L1 1 L0 6 L-1 1 L-6 0 L-1 -1Z" transform="rotate(45)"/></svg>Design system · v1</p>
+<h1 style="margin:0;font-size:clamp(3rem,7.5vw,6.5rem);line-height:.9;font-weight:800;letter-spacing:-.04em">Sunset Village</h1></div>
+<p style="margin:0;max-width:460px;color:var(--mist);font-size:19px">Tokens and patterns for the Music Hall site and any internal tools. Modern, with a dash of mid-century.</p>
+</div></header>
+
+<main class="wrap">
+
+<section class="block"><h2 class="sec">Wordmark</h2>
+<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
+<div class="panel ink"><img src="../assets/brand/wordmark-on-dark.svg" alt="Wordmark on dark" style="width:100%;max-width:360px;display:block"><p class="meta" style="color:var(--mist);margin:16px 0 0">wordmark-on-dark.svg · header, footer, ink grounds</p></div>
+<div class="panel card"><img src="../assets/brand/wordmark-on-light.svg" alt="Wordmark on light" style="width:100%;max-width:360px;display:block"><p class="meta" style="color:var(--ink-2);margin:16px 0 0">wordmark-on-light.svg · fog/paper grounds</p></div>
+</div>
+<p style="max-width:65ch">Minimum height 40px. Clear space: the height of the star on all sides. Never use the gradient original, never recolor beyond these two versions and <code>wordmark-mono.svg</code>.</p>
+</section>
+
+<section class="block"><h2 class="sec">Color</h2>
+<h3 class="sub">Grounds &amp; ink</h3>
+<div class="grid swatches">
+<div class="sw"><div style="background:#18302E"></div><p><b>ink</b><span>#18302E</span><br>Text, bands, outlines</p></div>
+<div class="sw"><div style="background:#4A5856"></div><p><b>ink-2</b><span>#4A5856</span><br>Secondary text</p></div>
+<div class="sw"><div style="background:#EEEAE2"></div><p><b>fog</b><span>#EEEAE2</span><br>Page ground</p></div>
+<div class="sw"><div style="background:#F8F6F1"></div><p><b>paper</b><span>#F8F6F1</span><br>Cards</p></div>
+<div class="sw"><div style="background:#E2DDD3"></div><p><b>sand</b><span>#E2DDD3</span><br>Muted, hover fills</p></div>
+<div class="sw"><div style="background:#C9C2B4"></div><p><b>line</b><span>#C9C2B4</span><br>1px borders (dense UI)</p></div>
+<div class="sw"><div style="background:#C9D3CF"></div><p><b>mist</b><span>#C9D3CF</span><br>Secondary text on ink</p></div>
+</div>
+<h3 class="sub">Sunset accents · fills with ink text</h3>
+<div class="grid swatches">
+<div class="sw"><div style="background:#FF6A3D"></div><p><b>sun</b><span>#FF6A3D</span><br>The CTA. One per view</p></div>
+<div class="sw"><div style="background:#FFC93C"></div><p><b>yellow</b><span>#FFC93C</span><br>Ticker, highlights, focus</p></div>
+<div class="sw"><div style="background:#8FD3CB"></div><p><b>teal</b><span>#8FD3CB</span><br>Community, panels</p></div>
+<div class="sw"><div style="background:#F6B3BF"></div><p><b>pink</b><span>#F6B3BF</span><br>Workshops, panels</p></div>
+<div class="sw"><div style="background:#0E5E66"></div><p><b>sea</b><span>#0E5E66</span><br>Links, photo tint</p></div>
+<div class="sw"><div style="background:#DCE7E3"></div><p><b>map</b><span>#DCE7E3</span><br>Placeholders</p></div>
+</div>
+</section>
+
+<section class="block"><h2 class="sec">Type</h2>
+<div class="typerow"><code>display-xl · Bricolage 800</code><span style="font-size:clamp(3rem,7.5vw,6.5rem);line-height:.9;font-weight:800;letter-spacing:-.04em">Sick sets.</span></div>
+<div class="typerow"><code>display-lg</code><span style="font-size:clamp(2.4rem,5vw,4rem);line-height:.95;font-weight:800;letter-spacing:-.03em">Coming up</span></div>
+<div class="typerow"><code>heading-xl · 36</code><span style="font-size:36px;line-height:1;font-weight:800;letter-spacing:-.02em">November 2026</span></div>
+<div class="typerow"><code>heading-lg · 28</code><span style="font-size:28px;line-height:1.05;font-weight:800;letter-spacing:-.02em">Sunday Songwriters Round</span></div>
+<div class="typerow"><code>heading-md · 20</code><span style="font-size:20px;font-weight:800">Doors &amp; box office</span></div>
+<div class="typerow"><code>lede · 19</code><span style="font-size:19px">Shows, album releases, birthdays, fundraisers, workshops.</span></div>
+<div class="typerow"><code>body · 17</code><span>The hall lives in a building full of good neighbors. Grab a bite or a coffee before the show.</span></div>
+<div class="typerow"><code>ui · 15 (internal)</code><span style="font-size:15px">12 requests waiting for a reply</span></div>
+<div class="typerow"><code>eyebrow · Montserrat 13</code><span class="eyebrow" style="margin:0">On the calendar</span></div>
+<div class="typerow"><code>label-sm · Montserrat 11</code><span class="label-sm">Capacity</span></div>
+<div class="typerow"><code>kind · DM Mono 12</code><span class="kind">Live music · Surf rock</span></div>
+<div class="typerow"><code>meta · DM Mono 13</code><span class="meta">Doors 7pm · Show 8pm · $20 adv</span></div>
+</section>
+
+<section class="block"><h2 class="sec">Space &amp; shape</h2>
+<h3 class="sub">Spacing · 4px base</h3>
+<div class="space"><div><div style="width:8px;height:8px"></div><span>8</span></div><div><div style="width:12px;height:12px"></div><span>12</span></div><div><div style="width:16px;height:16px"></div><span>16</span></div><div><div style="width:20px;height:20px"></div><span>20 grid gap</span></div><div><div style="width:24px;height:24px"></div><span>24 gutter</span></div><div><div style="width:28px;height:28px"></div><span>28 head→content</span></div><div><div style="width:48px;height:48px"></div><span>48</span></div><div><div style="width:72px;height:72px"></div><span>72 section</span></div><div><div style="width:88px;height:88px"></div><span>88 before footer</span></div></div>
+<h3 class="sub">Radius</h3>
+<div class="radii"><div style="border-radius:14px">md 14 · inputs</div><div style="border-radius:18px">lg 18</div><div style="border-radius:24px">xl 24 · cards</div><div style="border-radius:28px">2xl 28</div><div style="border-radius:32px">3xl 32 · bands</div><div style="border-radius:999px;justify-content:center;align-items:center">full · pills</div></div>
+<p style="max-width:65ch">No shadows. Objects separate with a 2px ink outline on marketing pages, 1px <code>line</code> in dense internal UI. Dashed 2px ink means placeholder or "coming soon".</p>
+</section>
+
+<section class="block"><h2 class="sec">Components</h2>
+<h3 class="sub">Buttons</h3>
+<div class="row"><a class="btn btn-sun btn-lg" href="#">See what's up →</a><a class="btn btn-ink" href="#">Get tickets</a><a class="btn btn-line" href="#">Details</a><a class="btn btn-ghost" href="#">Cancel</a><a class="btn btn-ink btn-sm" href="#">Small</a></div>
+<div class="row panel ink" style="margin-top:14px"><a class="btn btn-sun btn-lg" href="#">Sun on ink</a><a class="btn btn-ink" href="#">Default on ink</a><a class="btn btn-line" href="#">Outline on ink</a></div>
+<h3 class="sub">Filter chips · tags</h3>
+<div class="row"><button class="chip on" type="button" aria-pressed="true">Everything</button><button class="chip" type="button" aria-pressed="false">Live music</button><button class="chip" type="button" aria-pressed="false">DJ nights</button>
+<span class="tag" style="background:var(--yellow)">Shows</span><span class="tag" style="background:var(--teal)">Private parties</span><span class="tag" style="background:var(--pink)">Fundraisers</span></div>
+<h3 class="sub">Form controls</h3>
+<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));max-width:900px">
+<div class="f"><label for="p1">Your name *</label><input class="field" id="p1" placeholder="Jane Doe"></div>
+<div class="f"><label for="p2">What kind of event? *</label><select class="field" id="p2"><option>Concert or show</option></select></div>
+<label class="check"><input type="checkbox" checked> Sound engineer</label>
+</div>
+<h3 class="sub">Event row · event card</h3>
+<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));align-items:start">
+<article class="card" style="padding:16px;display:flex;flex-wrap:wrap;gap:16px 24px;align-items:center">
+<div class="stub" style="background:var(--teal)"><span>SUN</span><b>15</b><span>NOV</span></div>
+<div style="flex:1 1 160px;display:flex;flex-direction:column;gap:6px"><span class="kind">Community · Acoustic</span><b style="font-size:24px;line-height:1.05;letter-spacing:-.02em">Sunday Songwriters Round</b><span class="meta">5pm · Free</span></div>
+</article>
+<article class="card" style="overflow:hidden;max-width:320px">
+<div style="position:relative;aspect-ratio:4/3;background:var(--yellow);border-bottom:2px dashed var(--ink)"><div style="position:absolute;left:18px;top:14px;line-height:.85"><span class="label-sm">SAT</span><b style="display:block;font-size:96px;font-weight:800;letter-spacing:-.05em">7</b></div><svg style="position:absolute;right:16px;top:16px" width="40" height="40" viewBox="-12 -12 24 24" fill="#18302E"><path d="M0 -12 L1.7 -1.7 L12 0 L1.7 1.7 L0 12 L-1.7 1.7 L-12 0 L-1.7 -1.7Z"/><path d="M0 -6 L1 -1 L6 0 L1 1 L0 6 L-1 1 L-6 0 L-1 -1Z" transform="rotate(45)"/></svg></div>
+<div style="padding:16px 20px 20px;display:flex;flex-direction:column;gap:8px"><span class="kind">DJ night · Disco &amp; boogie</span><b style="font-size:26px;line-height:1.05;letter-spacing:-.02em">Night Swim</b><span class="meta">Doors 9pm · $12</span><div class="row" style="gap:8px"><a class="btn btn-ink" href="#">Get tickets</a><a class="btn btn-line" href="#">Details</a></div></div>
+</article>
+</div>
+</section>
+
+<section class="block"><h2 class="sec">Internal UI</h2>
+<p style="max-width:65ch;margin-top:-12px">Same tokens, quieter: 1px <code>line</code> borders, 15px body, small buttons, no ticker, wave or hero. One <code>sun</code> action per screen at most.</p>
+<div class="app">
+<div class="appbar ink"><img src="../assets/brand/wordmark-on-dark.svg" alt="Sunset Village Music Hall" style="height:40px;display:block"><nav aria-label="Admin"><a class="cur" href="#">Requests</a><a href="#">Calendar</a><a href="#">Spaces</a></nav></div>
+<div class="appbody">
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px"><div><p class="eyebrow" style="margin-bottom:6px">Bookings</p><b style="font-size:36px;line-height:1;letter-spacing:-.02em">Requests</b></div><div class="row" style="gap:8px"><a class="btn btn-line btn-sm" href="#">Export</a><a class="btn btn-ink btn-sm" href="#">New event</a></div></div>
+<div class="stats"><div class="stat"><span class="label-sm" style="color:var(--ink-2)">New</span><b>12</b></div><div class="stat"><span class="label-sm" style="color:var(--ink-2)">Quoted</span><b>5</b></div><div class="stat"><span class="label-sm" style="color:var(--ink-2)">Confirmed · Dec</span><b>9</b></div></div>
+<div class="tbl"><table><thead><tr><th>Requested by</th><th>Event</th><th>Date</th><th>Guests</th><th>Status</th></tr></thead><tbody>
+<tr><td><b>[Name]</b><br><span style="color:var(--ink-2)">[Band or org]</span></td><td>Album release</td><td class="meta">Sat Jan 16</td><td class="meta">140</td><td><span class="pill" style="background:var(--yellow)">New</span></td></tr>
+<tr><td><b>[Name]</b><br><span style="color:var(--ink-2)">[Band or org]</span></td><td>Fundraiser</td><td class="meta">Fri Jan 22</td><td class="meta">90</td><td><span class="pill" style="background:var(--sand)">Quoted</span></td></tr>
+<tr><td><b>[Name]</b><br><span style="color:var(--ink-2)">[Band or org]</span></td><td>Workshop</td><td class="meta">Sun Jan 31</td><td class="meta">25</td><td><span class="pill" style="background:var(--teal)">Confirmed</span></td></tr>
+</tbody></table></div>
+</div></div>
+</section>
+
+<section class="block" style="border-bottom:0"><h2 class="sec">Ornaments</h2>
+<div class="row" style="gap:28px;align-items:center">
+<svg width="56" height="56" viewBox="-12 -12 24 24" fill="#FF6A3D" aria-label="Sparkle"><path d="M0 -12 L1.7 -1.7 L12 0 L1.7 1.7 L0 12 L-1.7 1.7 L-12 0 L-1.7 -1.7Z"/><path d="M0 -6 L1 -1 L6 0 L1 1 L0 6 L-1 1 L-6 0 L-1 -1Z" transform="rotate(45)"/></svg>
+<div class="stub" style="background:var(--sun)"><span>FRI</span><b>6</b><span>NOV</span></div>
+<p style="max-width:52ch;margin:0">The sparkle (from the wordmark), the ticket-stub date and the wave edge under ink heroes are the only ornaments. Use one per element at most; don't add new ones.</p>
+</div>
+<div class="ink" style="margin-top:24px;border-radius:24px;overflow:hidden"><div style="height:56px"></div><svg viewBox="0 0 1440 40" preserveAspectRatio="none" style="display:block;width:100%;height:40px;background:var(--fog)"><path d="M0 0 H1440 V14 q-45 26 -90 0 t-90 0 t-90 0 t-90 0 t-90 0 t-90 0 t-90 0 t-90 0 t-90 0 t-90 0 t-90 0 t-90 0 t-90 0 t-90 0 t-90 0 t-90 0 Z" fill="#18302E"/></svg></div>
+</section>
+</main>
+</body>
+</html>

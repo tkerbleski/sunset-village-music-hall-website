@@ -1,0 +1,292 @@
+/*
+ * Sunset Village Music Hall — design tokens + shadcn theme (Tailwind CSS v4).
+ *
+ * Drop this in as app/globals.css (replacing the file `npx shadcn init` creates).
+ * Fonts are loaded with next/font in design-system/fonts.ts, which defines
+ * --font-bricolage, --font-montserrat and --font-dm-mono on <html>.
+ *
+ * Rule of thumb: use the semantic shadcn tokens (bg-background, text-foreground,
+ * bg-card, border-border, text-muted-foreground …) for UI, and the brand palette
+ * (bg-ink, bg-fog, bg-sun, bg-yellow, bg-teal, bg-pink, text-sea …) for marketing
+ * surfaces. Never type a raw hex value in a component.
+ */
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* shadcn dark mode is not used on the public site; ink bands use .theme-ink instead. */
+@custom-variant dark (&:is(.dark *));
+
+/* ------------------------------------------------------------------ */
+/* 1. Brand palette + type + shape tokens (generate Tailwind utilities) */
+/* ------------------------------------------------------------------ */
+@theme {
+  /* Neutrals: warm fog paper, cool cypress ink */
+  --color-ink: #18302E;        /* primary text, dark bands, 2px outlines */
+  --color-ink-2: #4A5856;      /* secondary text on fog/paper (6.2:1 on fog) */
+  --color-ink-hover: #24423F;  /* hover for ink buttons */
+  --color-fog: #EEEAE2;        /* page background, text on ink */
+  --color-paper: #F8F6F1;      /* cards */
+  --color-mist: #C9D3CF;       /* secondary text on ink (9.1:1) */
+  --color-rule: #3C524F;       /* hairlines on ink */
+  --color-sand: #E2DDD3;       /* recessed fills on fog (muted/secondary) */
+  --color-line: #C9C2B4;       /* subtle 1px borders for dense/internal UI */
+
+  /* Sunset accents — fills with ink text; never as body text on fog */
+  --color-sun: #FF6A3D;        /* the one CTA color; ink text on it (4.9:1) */
+  --color-sun-hover: #FF8259;
+  --color-yellow: #FFC93C;     /* ticker, highlight panels, focus ring */
+  --color-teal: #8FD3CB;       /* category / panel fill */
+  --color-pink: #F6B3BF;       /* category / panel fill */
+  --color-sea: #0E5E66;        /* links on light grounds (6.2:1 on fog); photo tint */
+  --color-map: #DCE7E3;        /* placeholder / map ground */
+
+  /* Status (internal UI) — fills take ink text; the -text shades are for paper/fog grounds only */
+  --color-success: #8FD3CB;
+  --color-success-text: #0E5E66;
+  --color-warning: #FFC93C;
+  --color-warning-text: #7A5200;
+  --color-danger: #FBE3DC;
+  --color-danger-text: #9E3212;
+
+  /* Type families */
+  --font-display: var(--font-bricolage), "Bricolage Grotesque", system-ui, sans-serif; /* headings + body */
+  --font-label: var(--font-montserrat), "Montserrat", system-ui, sans-serif;           /* tracked caps labels */
+  --font-mono: var(--font-dm-mono), "DM Mono", ui-monospace, Menlo, monospace;         /* dates, prices, meta */
+  --font-sans: var(--font-display);
+
+  /* Type scale. Marketing sizes are fluid; UI sizes are fixed. */
+  --text-display-xl: clamp(3rem, 7.5vw, 6.5rem);
+  --text-display-xl--line-height: 0.9;
+  --text-display-xl--letter-spacing: -0.04em;
+  --text-display-xl--font-weight: 800;
+  --text-display-lg: clamp(2.4rem, 5vw, 4rem);
+  --text-display-lg--line-height: 0.95;
+  --text-display-lg--letter-spacing: -0.03em;
+  --text-display-lg--font-weight: 800;
+  --text-heading-xl: 2.25rem;   /* 36 — month headers, panel titles */
+  --text-heading-xl--line-height: 1;
+  --text-heading-xl--letter-spacing: -0.02em;
+  --text-heading-xl--font-weight: 800;
+  --text-heading-lg: 1.75rem;   /* 28 — card titles */
+  --text-heading-lg--line-height: 1.05;
+  --text-heading-lg--letter-spacing: -0.02em;
+  --text-heading-lg--font-weight: 800;
+  --text-heading-md: 1.25rem;   /* 20 — small section titles */
+  --text-heading-md--line-height: 1.2;
+  --text-heading-md--letter-spacing: -0.01em;
+  --text-heading-md--font-weight: 800;
+  --text-lede: 1.1875rem;       /* 19 */
+  --text-lede--line-height: 1.5;
+  --text-body: 1.0625rem;       /* 17 — default body */
+  --text-body--line-height: 1.5;
+  --text-ui: 0.9375rem;         /* 15 — dense/internal UI body */
+  --text-ui--line-height: 1.45;
+  --text-label: 0.8125rem;      /* 13 — eyebrow */
+  --text-label--letter-spacing: 0.24em;
+  --text-label-sm: 0.6875rem;   /* 11 — dt / stub labels */
+  --text-label-sm--letter-spacing: 0.22em;
+  --text-meta: 0.8125rem;       /* 13 — mono meta */
+  --text-meta--line-height: 1.6;
+
+  /* Shape */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;     /* inputs, checkboxes rows */
+  --radius-lg: 18px;     /* small panels, photo placeholders */
+  --radius-xl: 24px;     /* cards */
+  --radius-2xl: 28px;    /* large cards */
+  --radius-3xl: 32px;    /* bands */
+  --radius-4xl: 36px;    /* newsletter band */
+  /* buttons, chips, badges, nav items: rounded-full */
+
+  --container-site: 80rem; /* 1280px content width */
+
+  /* Motion */
+  --ease-out-soft: cubic-bezier(0.2, 0, 0.1, 1);
+  --animate-lift: lift 200ms var(--ease-out-soft) both;
+  @keyframes lift { from { transform: translateY(0) } to { transform: translateY(-3px) } }
+}
+
+/* ------------------------------------------------------------------ */
+/* 2. shadcn semantic tokens (light = the site)                         */
+/* ------------------------------------------------------------------ */
+:root {
+  --radius: 14px;
+  --background: #EEEAE2;          /* fog */
+  --foreground: #18302E;          /* ink */
+  --card: #F8F6F1;                /* paper */
+  --card-foreground: #18302E;
+  --popover: #F8F6F1;
+  --popover-foreground: #18302E;
+  --primary: #18302E;             /* ink buttons are the default */
+  --primary-foreground: #EEEAE2;
+  --secondary: #E2DDD3;           /* sand */
+  --secondary-foreground: #18302E;
+  --muted: #E2DDD3;
+  --muted-foreground: #4A5856;
+  --accent: #E2DDD3;              /* hover fills */
+  --accent-foreground: #18302E;
+  --destructive: #B23A16;
+  --border: #C9C2B4;              /* subtle 1px; marketing outlines use border-2 border-ink */
+  --input: #18302E;               /* form fields have ink outlines */
+  --ring: #FFC93C;                /* yellow focus ring */
+  --chart-1: #FF6A3D;
+  --chart-2: #0E5E66;
+  --chart-3: #FFC93C;
+  --chart-4: #8FD3CB;
+  --chart-5: #F6B3BF;
+  --sidebar: #F8F6F1;
+  --sidebar-foreground: #18302E;
+  --sidebar-primary: #18302E;
+  --sidebar-primary-foreground: #EEEAE2;
+  --sidebar-accent: #E2DDD3;
+  --sidebar-accent-foreground: #18302E;
+  --sidebar-border: #C9C2B4;
+  --sidebar-ring: #FFC93C;
+}
+
+/* Ink bands (header, heroes, footer, "How it works" panel): scope shadcn tokens to the dark ground. */
+.theme-ink {
+  --background: #18302E;
+  --foreground: #EEEAE2;
+  --card: #24423F;
+  --card-foreground: #EEEAE2;
+  --primary: #EEEAE2;
+  --primary-foreground: #18302E;
+  --secondary: #24423F;
+  --secondary-foreground: #EEEAE2;
+  --muted: #24423F;
+  --muted-foreground: #C9D3CF;
+  --accent: rgba(238, 234, 226, 0.14);
+  --accent-foreground: #EEEAE2;
+  --border: #3C524F;
+  --input: #EEEAE2;
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/* ------------------------------------------------------------------ */
+/* 3. Base                                                              */
+/* ------------------------------------------------------------------ */
+@layer base {
+  * { @apply border-border outline-ring/60; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { @apply bg-background text-foreground font-display text-body antialiased; }
+  h1, h2, h3 { text-wrap: balance; }
+  a { @apply text-sea hover:text-ink; }
+  .theme-ink a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--color-yellow); outline-offset: 3px; }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
+}
+
+/* ------------------------------------------------------------------ */
+/* 4. Signature utilities                                               */
+/* ------------------------------------------------------------------ */
+
+/* Tracked caps label (eyebrow, kicker). Echoes "MUSIC HALL" in the wordmark. */
+@utility eyebrow {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: var(--text-label);
+  letter-spacing: var(--text-label--letter-spacing);
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+@utility label-sm {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: var(--text-label-sm);
+  letter-spacing: var(--text-label-sm--letter-spacing);
+  text-transform: uppercase;
+}
+/* Mono meta line: event kind, times, prices */
+@utility meta {
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  line-height: var(--text-meta--line-height);
+}
+@utility kind {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-ink-2);
+}
+
+/* Site container: 1280 max, 24px gutters that clear phone safe areas */
+@utility container-site {
+  width: 100%;
+  max-width: var(--container-site);
+  margin-inline: auto;
+  padding-left: max(24px, env(safe-area-inset-left, 0px));
+  padding-right: max(24px, env(safe-area-inset-right, 0px));
+}
+
+/* Ticket-stub notches on the date block (mid-century nod). Apply to a colored block. */
+@utility ticket-stub {
+  -webkit-mask:
+    radial-gradient(circle 9px at 0 50%, #0000 98%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle 9px at 100% 50%, #0000 98%, #000) right / 51% 100% no-repeat;
+  mask:
+    radial-gradient(circle 9px at 0 50%, #0000 98%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle 9px at 100% 50%, #0000 98%, #000) right / 51% 100% no-repeat;
+}
+
+/* Hero photo treatment: "sea duotone". Use on the <img>, then add .photo-tint and .hero-scrim layers. */
+@utility photo-duotone {
+  filter: grayscale(1) contrast(1.15) brightness(1.05);
+}
+@utility photo-tint {
+  background: var(--color-sea);
+  mix-blend-mode: color;
+  opacity: 0.6;
+  pointer-events: none;
+}
+/* Left-weighted scrim so hero text sits on ink while the right side of the photo stays visible */
+@utility hero-scrim {
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgb(24 48 46 / .94) 0%, rgb(24 48 46 / .82) 34%, rgb(24 48 46 / .35) 62%, rgb(24 48 46 / 0) 82%),
+    linear-gradient(0deg, rgb(24 48 46 / .7) 0%, rgb(24 48 46 / 0) 28%);
+  @media (width < 760px) { background: rgb(24 48 46 / .8); }
+}
+
+/* Interactive card lift */
+@utility lift {
+  transition: transform 200ms var(--ease-out-soft);
+  &:hover { transform: translateY(-3px); }
+}

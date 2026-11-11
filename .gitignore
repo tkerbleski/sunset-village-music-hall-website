@@ -1,6 +1,8 @@
 # deps / build
 node_modules
 dist
+.next
+next-env.d.ts
 *.tsbuildinfo
 
 # original photos — optimized webp output lives in public/photos/
