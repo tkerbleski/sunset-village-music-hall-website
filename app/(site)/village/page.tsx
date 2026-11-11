@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Eyebrow } from '@/components/brand/eyebrow'
 import { WaveDivider } from '@/components/brand/wave-divider'
 import { Band, Section, SectionHead } from '@/components/layout/section'
-import { BuildingIllustration } from '@/components/village/building-illustration'
+import Image from 'next/image'
 import { ComingSoonCard, SpaceCard } from '@/components/village/space-card'
 import { loadContent } from '@/lib/server/content'
 import { site, isPlaceholder } from '@/lib/data/site'
@@ -32,7 +32,17 @@ export default async function VillagePage() {
               businesses worth a detour. Make a night of it.
             </p>
           </div>
-          <BuildingIllustration />
+          <div className="relative aspect-[10/7] overflow-hidden rounded-2xl">
+            <Image
+              src="/photos/village-hero-toggery.webp"
+              alt="The Sunset Village corner decades ago: a low storefront with a painted “Sunset Village, your complete shopping center” sign, the Sunset Toggery and Sally’s Coffee Shop, and a vintage car parked out front"
+              fill
+              priority
+              sizes="(max-width: 760px) 100vw, 620px"
+              className="photo-duotone object-cover"
+            />
+            <div className="photo-tint absolute inset-0" aria-hidden="true" />
+          </div>
         </div>
         <WaveDivider />
       </section>
