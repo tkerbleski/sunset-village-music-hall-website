@@ -1,0 +1,27 @@
+{
+  "$note": "Values in [brackets] are placeholders still to be supplied by the venue.",
+  "site": {
+    "name": "Sunset Village Music Hall",
+    "building": "Sunset Village",
+    "address": {
+      "street": "4114 Judah St",
+      "city": "San Francisco",
+      "state": "CA",
+      "zip": "94122"
+    },
+    "neighborhood": "Outer Sunset, San Francisco",
+    "bookingEmail": "bookings@sunsetvillagesf.com",
+    "generalEmail": "[hello@yourdomain.com]",
+    "phone": "[(415) 000-0000]",
+    "instagram": "[@yourhandle]",
+    "leasingEmail": "[leasing@yourdomain.com]",
+    "newsletterUrl": null,
+    "room": {
+      "capacity": 150,
+      "stage": "2550 sq feet (~75 x 30)",
+      "sound": "[PA, monitors, house engineer]",
+      "extras": "[Lights, bar, green room]"
+    },
+    "tagline": "Live music in the fog"
+  }
+}

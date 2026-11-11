@@ -1,0 +1,125 @@
+{
+  "$note": "SAMPLE DATA for layout only. Replace with the real calendar. Home shows the next 4 (design shows the featured ones); Events groups by month. Day-of-week and month labels derive from `date`.",
+  "events": [
+    {
+      "date": "2026-11-06",
+      "category": "music",
+      "kind": "Live music · Indie rock",
+      "title": "Fog Machine",
+      "subtitle": "with Low Tide Choir",
+      "time": "Doors 7pm · Show 8pm",
+      "price": "$18 adv · $22 door",
+      "cta": "Get tickets",
+      "ticketUrl": null,
+      "featured": true
+    },
+    {
+      "date": "2026-11-07",
+      "category": "dj",
+      "kind": "DJ night · Disco & boogie",
+      "title": "Night Swim",
+      "subtitle": "Resident DJs all night",
+      "time": "Doors 9pm · Til 2am",
+      "price": "$12",
+      "cta": "Get tickets",
+      "ticketUrl": null,
+      "featured": true
+    },
+    {
+      "date": "2026-11-12",
+      "category": "workshop",
+      "kind": "Workshop · Beginners",
+      "title": "Intro to DJing",
+      "subtitle": "Bring headphones, we have decks",
+      "time": "6:30pm",
+      "price": "$25",
+      "cta": "Sign up",
+      "ticketUrl": null,
+      "featured": false
+    },
+    {
+      "date": "2026-11-15",
+      "category": "community",
+      "kind": "Community · Acoustic",
+      "title": "Sunday Songwriters Round",
+      "subtitle": "Four local writers, one stage",
+      "time": "Doors 4:30pm · Show 5pm",
+      "price": "Free · RSVP",
+      "cta": "RSVP",
+      "ticketUrl": null,
+      "featured": true
+    },
+    {
+      "date": "2026-11-20",
+      "category": "music",
+      "kind": "Live music · Surf rock",
+      "title": "Cypress Drive",
+      "subtitle": "with The Judahs",
+      "time": "Doors 7pm · Show 8pm",
+      "price": "$20 adv · $25 door",
+      "cta": "Get tickets",
+      "ticketUrl": null,
+      "featured": true
+    },
+    {
+      "date": "2026-11-28",
+      "category": "community",
+      "kind": "Community · Market",
+      "title": "Leftovers Swap Meet",
+      "subtitle": "Records, gear, zines, plants",
+      "time": "11am–3pm",
+      "price": "Free",
+      "cta": "RSVP",
+      "ticketUrl": null,
+      "featured": false
+    },
+    {
+      "date": "2026-12-04",
+      "category": "music",
+      "kind": "Live music · Jazz",
+      "title": "Marine Layer Quartet",
+      "subtitle": "Two sets, seated show",
+      "time": "Doors 7pm",
+      "price": "$22",
+      "cta": "Get tickets",
+      "ticketUrl": null,
+      "featured": false
+    },
+    {
+      "date": "2026-12-12",
+      "category": "dj",
+      "kind": "DJ night · House",
+      "title": "Outer Lands Dance Party",
+      "subtitle": "Guest DJ [TBA]",
+      "time": "Doors 9pm",
+      "price": "$15",
+      "cta": "Get tickets",
+      "ticketUrl": null,
+      "featured": false
+    },
+    {
+      "date": "2026-12-13",
+      "category": "workshop",
+      "kind": "Workshop · Kids & families",
+      "title": "Make-a-Band Morning",
+      "subtitle": "Instruments provided",
+      "time": "10am",
+      "price": "$10",
+      "cta": "Sign up",
+      "ticketUrl": null,
+      "featured": false
+    },
+    {
+      "date": "2026-12-31",
+      "category": "dj",
+      "kind": "DJ night · New Year’s Eve",
+      "title": "Last Light of 2026",
+      "subtitle": "Countdown, confetti, fog",
+      "time": "Doors 9pm",
+      "price": "$35",
+      "cta": "Get tickets",
+      "ticketUrl": null,
+      "featured": false
+    }
+  ]
+}

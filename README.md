@@ -6,13 +6,19 @@ music hall, and community spaces you can book.
 
 ## Stack
 
-Vite + React 19 + TypeScript + Tailwind v4. No `tailwind.config` — design
-tokens live in `@theme` inside `src/index.css`.
+Next.js (App Router) + React 19 + TypeScript + Tailwind v4 + shadcn/ui, on
+Vercel. No `tailwind.config`: design tokens live in `@theme` in
+`app/globals.css`. The design system (tokens, components, rules for public and
+internal pages) is described in `CLAUDE.md` and `handoff/docs/design-system.md`;
+the approved design is in `handoff/`.
 
 ```bash
-npm run dev              # local dev at :5173
-npm run build            # tsc + vite build
+npm run dev              # local dev at :3000
+SAMPLE_CONTENT=1 npm run dev   # with the design handoff's sample calendar
+npm run build            # production build (includes type check)
+npm run lint             # tsc --noEmit
 npm run optimize:photos  # "Photo Assets/" → public/photos/*.webp
+node scripts/screenshots.mjs http://localhost:3000   # page captures at 1440 / 390
 ```
 
 ## Photos
@@ -24,10 +30,10 @@ map in `scripts/optimize-photos.mjs`; new drops get slugged filenames.
 
 ## Pages
 
-React Router SPA (vercel.json rewrites all paths to index.html):
-`/` home, `/events` calendar (upcoming + recent), `/events/:id` event
-pages (with Buy tickets when online sales are on), `/music-hall` venue page
-with the inquiry form.
+`/` home, `/events` calendar (category filter, `?type=` links), `/events/:id`
+event pages (with Buy tickets when online sales are on), `/book` hall booking
+request form, `/village` building directory. Pages read the database on the
+server and refresh every 30 seconds.
 
 ## Content & admin
 
@@ -36,16 +42,18 @@ admin signs in with their own email + password (`admins` table, scrypt
 hashes). `ADMIN_PASSWORD` is the owner's master key: the first sign-in with
 it creates the first admin, and it works as a recovery password for any
 admin email. The public pages fetch them
-from `/api/content`; `src/data/events.ts` and `src/data/tenants.ts` are only
-the initial seed and the fallback used in local dev (no API there) or if the
-API is unreachable. Editing those files does not change the live site.
+directly from the database on the server (`lib/server/content.ts`);
+`lib/data/events.ts` and `lib/data/tenants.ts` are only the initial seed and
+the fallback used in local dev (no database) or if the database is
+unreachable. Editing those files does not change the live site.
 
-`src/data/site.ts` (address, socials, booking email) is still edited in code.
+`lib/data/site.ts` (address, socials, emails, room specs, and the
+`[bracketed]` placeholders still to be filled in) is edited in code.
 
-Admin screens (`src/admin/`): Overview (counts, latest inquiries and ticket
+Admin screens (`app/admin/`): Overview (counts, latest inquiries and ticket
 sales, upcoming events, which services are connected), Events
 (add/edit/duplicate, flyer upload to Vercel Blob, online ticket price +
-capacity), Bookings (inquiries from the Music Hall form, status + private
+capacity), Bookings (requests from the Book the hall form, status + private
 notes), Tickets (orders per event, door-list check-in, refunded flag, CSV),
 Newsletter (subscribers, CSV download, send announcements), Shops (details,
 weekly hours, order), Team (add/remove admins, temp passwords, change your
@@ -53,7 +61,9 @@ own password).
 
 ## Backend
 
-Vercel functions in `api/` (shared code in `api/_lib/`):
+Route handlers in `app/api/*/route.ts` run the handlers in
+`lib/server/handlers/` (shared code in `lib/server/`) through a small adapter,
+so the URLs are the same as before:
 
 - `inquiry.ts` saves to the `bookings` table, then emails `INQUIRY_TO`.
   Succeeds if either works; if both fail the visitor sees an error.
@@ -82,7 +92,7 @@ Resend key restricted to the sunsetvillagesf.com domain.
 1. Vercel → Storage: add **Neon** and **Blob** to this project (sets
    `DATABASE_URL`, `BLOB_READ_WRITE_TOKEN`).
 2. `DATABASE_URL=… npm run db:setup` creates the tables and seeds events/shops
-   from `src/data/`. Safe to re-run; re-run it after pulling schema changes.
+   from `lib/data/`. Safe to re-run; re-run it after pulling schema changes.
 3. Resend: verify the sunsetvillagesf.com domain and create a sending-only key
    for it. Set `RESEND_API_KEY`, `INQUIRY_FROM`, `INQUIRY_TO`.
 4. Stripe: set `STRIPE_SECRET_KEY` and add the webhook endpoint

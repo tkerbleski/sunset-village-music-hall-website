@@ -23,12 +23,6 @@
       "permanent": false
     }
   ],
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ],
   "crons": [
     {
       "path": "/api/backup",
@@ -45,5 +39,6 @@
         }
       ]
     }
-  ]
+  ],
+  "framework": "nextjs"
 }

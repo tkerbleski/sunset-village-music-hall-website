@@ -1,4 +1,4 @@
-// Create the database tables and seed them from src/data/ (events + shops).
+// Create the database tables and seed them from lib/data/ (events + shops).
 // Safe to run more than once: tables are created only if missing, and
 // seeding only happens into an empty table.
 //
@@ -8,8 +8,8 @@
 // or `vercel env pull`.) Needs Node 22.18+ to import the .ts data files.
 
 import { neon } from '@neondatabase/serverless'
-import { events } from '../src/data/events.ts'
-import { tenants } from '../src/data/tenants.ts'
+import { events } from '../lib/data/events.ts'
+import { tenants } from '../lib/data/tenants.ts'
 
 if (!process.env.DATABASE_URL) {
   console.error('Set DATABASE_URL first.')
@@ -113,6 +113,21 @@ const schema = [
     value text,
     updated_at timestamptz not null default now()
   )`,
+  // V2 design: event category/kind/subtitle/CTA label, space type/unit/socials/photo/fill,
+  // and the fuller booking request form.
+  `alter table events add column if not exists category text not null default 'music'`,
+  `alter table events add column if not exists kind text`,
+  `alter table events add column if not exists subtitle text`,
+  `alter table events add column if not exists cta text`,
+  `alter table tenants add column if not exists type text`,
+  `alter table tenants add column if not exists unit text`,
+  `alter table tenants add column if not exists instagram text`,
+  `alter table tenants add column if not exists photo text`,
+  `alter table tenants add column if not exists fill text not null default 'teal'`,
+  `alter table bookings add column if not exists org text`,
+  `alter table bookings add column if not exists phone text`,
+  `alter table bookings add column if not exists backup_date text`,
+  `alter table bookings add column if not exists needs text`,
   `create table if not exists admins (
     id serial primary key,
     email text not null unique,
@@ -131,10 +146,12 @@ const [{ n: eventCount }] = await sql.query('select count(*)::int as n from even
 if (eventCount === 0) {
   for (const e of events) {
     await sql.query(
-      `insert into events (id, title, date, time, venue, summary, details, price, ticket_url, flyer, sample)
-       values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)`,
+      `insert into events (id, title, date, time, venue, summary, details, price, ticket_url, flyer, sample,
+         category, kind, subtitle, cta)
+       values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)`,
       [e.id, e.title, e.date, e.time ?? null, e.venue, e.summary, e.details ?? null, e.price ?? null,
-       e.ticketUrl ?? null, e.flyer ?? null, Boolean(e.sample)],
+       e.ticketUrl ?? null, e.flyer ?? null, Boolean(e.sample), e.category ?? 'music', e.kind ?? null,
+       e.subtitle ?? null, e.cta ?? null],
     )
   }
   console.log(`Seeded ${events.length} events.`)
@@ -146,10 +163,11 @@ const [{ n: tenantCount }] = await sql.query('select count(*)::int as n from ten
 if (tenantCount === 0) {
   for (const [i, t] of tenants.entries()) {
     await sql.query(
-      `insert into tenants (id, name, status, blurb, hours, hours_note, link, link_label, sort)
-       values ($1,$2,$3,$4,$5,$6,$7,$8,$9)`,
+      `insert into tenants (id, name, status, blurb, hours, hours_note, link, link_label, type, unit, instagram, photo, fill, sort)
+       values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)`,
       [t.id, t.name, t.status, t.blurb, t.hours ? JSON.stringify(t.hours) : null, t.hoursNote ?? null,
-       t.link ?? null, t.linkLabel ?? null, i + 1],
+       t.link ?? null, t.linkLabel ?? null, t.type ?? null, t.unit ?? null, t.instagram ?? null,
+       t.photo ?? null, t.fill ?? 'teal', i + 1],
     )
   }
   console.log(`Seeded ${tenants.length} shops.`)
