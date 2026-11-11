@@ -3,7 +3,7 @@
 // well under the Hobby plan's function limit.
 //
 // Env: ADMIN_PASSWORD (session key + owner master key), DATABASE_URL (Neon),
-// BLOB_READ_WRITE_TOKEN (flyer uploads), RESEND_API_KEY + INQUIRY_FROM
+// BLOB_STORE_ID or BLOB_READ_WRITE_TOKEN (image uploads), RESEND_API_KEY + INQUIRY_FROM
 // (emails), STRIPE_SECRET_KEY (online tickets).
 
 import { put } from '@vercel/blob'
@@ -38,6 +38,11 @@ const need = (v: string | null, what: string): string => {
   if (!v) throw new BadRequest(`${what} is required`)
   return v
 }
+
+// Newer Blob stores connect with BLOB_STORE_ID and sign in with Vercel's
+// short-lived OIDC token; older ones use a long-lived BLOB_READ_WRITE_TOKEN.
+// @vercel/blob handles both.
+const hasBlob = () => Boolean(process.env.BLOB_STORE_ID || process.env.BLOB_READ_WRITE_TOKEN)
 
 const slugify = (s: string) =>
   s
@@ -289,7 +294,7 @@ async function saveTenant(b: Body) {
 // stays well under Vercel's 4.5MB request limit.
 
 async function upload(b: Body) {
-  if (!process.env.BLOB_READ_WRITE_TOKEN) throw new BadRequest('Image storage isn’t set up yet')
+  if (!hasBlob()) throw new BadRequest('Image storage isn’t set up yet')
   const type = str(b.contentType)
   if (!['image/webp', 'image/jpeg', 'image/png'].includes(type)) throw new BadRequest('Use a JPG, PNG, or WebP image')
   const data = Buffer.from(str(b.data), 'base64')
@@ -387,7 +392,7 @@ export default async function handler(req: VercelReq, res: VercelRes) {
         admin: me,
         email: hasEmail(),
         notifications: hasEmail() && Boolean(process.env.INQUIRY_TO),
-        uploads: Boolean(process.env.BLOB_READ_WRITE_TOKEN),
+        uploads: hasBlob(),
         payments: hasStripe(),
         backups: Boolean(process.env.CRON_SECRET) && hasEmail() && Boolean(process.env.INQUIRY_TO),
         newBookings: n,

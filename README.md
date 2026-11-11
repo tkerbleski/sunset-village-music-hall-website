@@ -101,7 +101,7 @@ Resend key restricted to the sunsetvillagesf.com domain.
 ### Setup (once)
 
 1. Vercel → Storage: add **Neon** and **Blob** to this project (sets
-   `DATABASE_URL`, `BLOB_READ_WRITE_TOKEN`).
+   `DATABASE_URL` and `BLOB_STORE_ID`).
 2. `DATABASE_URL=… npm run db:setup` creates the tables and seeds events/shops
    from `lib/data/`. Safe to re-run; re-run it after pulling schema changes.
 3. Resend: verify the sunsetvillagesf.com domain and create a sending-only key
