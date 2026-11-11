@@ -22,7 +22,7 @@ export interface Tenant {
   linkLabel?: string
   /** Shown in the mono kind line, e.g. "Gift shop". */
   type?: string
-  /** e.g. "Unit 2". Shows as a placeholder until set. */
+  /** Legacy: no longer shown anywhere. The DB column is kept so old rows still load. */
   unit?: string
   instagram?: string
   /** Storefront photo; fills the card's photo area. */

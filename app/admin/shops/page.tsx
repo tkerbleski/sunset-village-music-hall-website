@@ -109,7 +109,7 @@ export default function ShopsPage() {
                       <StatusPill status={t.status}>{t.status === 'open' ? 'Open' : 'Coming soon'}</StatusPill>
                     </div>
                     <div className="text-meta text-ink-2">
-                      {[t.type, t.unit, t.hours ? hourLines(t.hours).join('; ') : t.hoursNote].filter(Boolean).join(' · ')}
+                      {[t.type, t.hours ? hourLines(t.hours).join('; ') : t.hoursNote].filter(Boolean).join(' · ')}
                     </div>
                   </div>
                   <Button variant="outline" size="sm" onClick={() => setEditing(t)}>
