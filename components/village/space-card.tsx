@@ -30,7 +30,7 @@ export function SpaceCard({ space }: { space: Tenant }) {
   const hall = isMusicHall(space)
   const instagram = space.instagram ?? (hall ? site.instagram : undefined)
   const hours = space.hours ? hourLines(space.hours).join(' · ') : space.hoursNote
-  const kind = [space.type ?? '[Business type]', space.unit ?? 'Unit [#]'].join(' · ')
+  const kind = space.type ?? '[Business type]'
 
   return (
     <article className="lift flex flex-col overflow-hidden rounded-xl border-2 border-ink bg-card">
@@ -81,7 +81,7 @@ export function ComingSoonCard() {
   return (
     <article className="flex min-h-80 flex-col justify-center gap-2.5 rounded-xl border-2 border-dashed border-ink px-6 py-7">
       <Sparkle size={32} />
-      <span className="kind">Unit [#] · Coming soon</span>
+      <span className="kind">Coming soon</span>
       <h3 className="text-heading-lg">Something new is moving in</h3>
       <p className="text-ink-2">Watch this space. We’ll announce new neighbors in the fog report.</p>
       <Link className="font-bold" href="/#newsletter">

@@ -162,9 +162,6 @@ export function ShopForm({ initial, setup, onDone }: { initial: ShopDraft; setup
             <FormField label="Type (optional)" htmlFor="shop-type" hint="Small line on the card, e.g. “Gift shop”.">
               <Input density="compact" id="shop-type" value={d.type ?? ''} onChange={set('type')} />
             </FormField>
-            <FormField label="Unit (optional)" htmlFor="shop-unit" hint="e.g. “Unit 2”.">
-              <Input density="compact" id="shop-unit" value={d.unit ?? ''} onChange={set('unit')} />
-            </FormField>
           </div>
           <FormField label="Description" htmlFor="shop-blurb" hint="A sentence or two about what they are.">
             <Textarea density="compact" id="shop-blurb" required rows={3} value={d.blurb ?? ''} onChange={set('blurb')} />
