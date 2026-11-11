@@ -35,6 +35,17 @@ event pages (with Buy tickets when online sales are on), `/book` hall booking
 request form, `/village` building directory. Pages read the database on the
 server and refresh every 30 seconds.
 
+## Deploying
+
+Merges to `main` deploy to Vercel production through GitHub Actions
+(`.github/workflows/deploy.yml`): the runner builds with the Vercel CLI and
+uploads the result. It needs three repository secrets: `VERCEL_TOKEN`,
+`VERCEL_ORG_ID` and `VERCEL_PROJECT_ID` (the last two are in
+`.vercel/project.json` after `vercel link`). The app's own environment
+variables live in the Vercel project. The workflow can also be run by hand
+from the Actions tab. For a one-off deploy from your machine, run
+`vercel deploy --prod`.
+
 ## Content & admin
 
 Events and shops are edited at **/admin** and stored in Neon Postgres. Each
@@ -90,7 +101,7 @@ Resend key restricted to the sunsetvillagesf.com domain.
 ### Setup (once)
 
 1. Vercel → Storage: add **Neon** and **Blob** to this project (sets
-   `DATABASE_URL`, `BLOB_READ_WRITE_TOKEN`).
+   `DATABASE_URL` and `BLOB_STORE_ID`).
 2. `DATABASE_URL=… npm run db:setup` creates the tables and seeds events/shops
    from `lib/data/`. Safe to re-run; re-run it after pulling schema changes.
 3. Resend: verify the sunsetvillagesf.com domain and create a sending-only key
