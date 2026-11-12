@@ -45,6 +45,8 @@ export const eventFromRow = (r: Record<string, any>) =>
     kind: r.kind,
     subtitle: r.subtitle,
     cta: r.cta,
+    startTime: r.start_time,
+    endTime: r.end_time,
     sample: r.sample || null,
   })
 

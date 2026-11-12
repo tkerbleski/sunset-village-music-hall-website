@@ -87,6 +87,12 @@ so the URLs are the same as before:
   (`?action=webhook`). Orders are recorded by re-reading the session from
   Stripe's API, so the webhook needs no signing secret; one row per session.
   Capacity is checked when checkout starts.
+- `lib/server/gcal.ts` copies events into a Google Calendar when they're
+  saved or deleted in the admin (one way: site → Google; edits made in Google
+  are overwritten). Set `GOOGLE_SERVICE_ACCOUNT_KEY` and `GOOGLE_CALENDAR_ID`
+  (see `.env.example`); Events → "Sync Google Calendar" re-sends all upcoming
+  events. Events need a start time to show at the right time; otherwise
+  they're all-day entries.
 - `backup.ts` is a weekly Vercel cron (Mondays) that emails `INQUIRY_TO` a CSV of
   all bookings, ticket orders, and subscribers, archived/unsubscribed included.
 

@@ -4,7 +4,7 @@
 // flyer. Saved changes show on the public site within about a minute.
 
 import { useState } from 'react'
-import { getJson } from '@/lib/admin/api'
+import { getJson, postJson } from '@/lib/admin/api'
 import { useLoad } from '@/lib/admin/use-load'
 import { dollars, eventHref, past as pastEvents, upcoming as upcomingEvents } from '@/lib/events'
 import type { VillageEvent } from '@/lib/data/events'
@@ -55,7 +55,26 @@ export default function EventsPage() {
   const { me, signedOut } = useAdmin()
   const { data, error, reload } = useLoad(() => getJson<VillageEvent[]>('events'), signedOut)
   const [editing, setEditing] = useState<EventDraft | null>(null)
-  const [saved, setSaved] = useState<VillageEvent | null>(null)
+  const [saved, setSaved] = useState<(VillageEvent & { calendar?: 'synced' | 'failed' | 'off' }) | null>(null)
+  const [syncNote, setSyncNote] = useState('')
+  const [syncing, setSyncing] = useState(false)
+
+  async function syncCalendar() {
+    setSyncing(true)
+    setSyncNote('')
+    try {
+      const r = await postJson<{ synced: number; total: number }>('calendar-sync', {})
+      setSyncNote(
+        r.synced === r.total
+          ? `Google Calendar is up to date (${r.total} upcoming ${r.total === 1 ? 'event' : 'events'}).`
+          : `Updated ${r.synced} of ${r.total} events in Google Calendar. Try again in a minute.`,
+      )
+    } catch (e) {
+      setSyncNote((e as Error).message)
+    } finally {
+      setSyncing(false)
+    }
+  }
   const [showPast, setShowPast] = useState(false)
 
   if (editing) {
@@ -96,9 +115,16 @@ export default function EventsPage() {
         title="Events"
         description="The calendar on the website. Changes show up on the site within a minute."
         actions={
-          <Button size="sm" onClick={() => setEditing({ venue: 'Music Hall', category: 'music' })}>
-            + Add event
-          </Button>
+          <>
+            {me.calendar && (
+              <Button size="sm" variant="outline" onClick={syncCalendar} disabled={syncing}>
+                {syncing ? 'Syncing…' : 'Sync Google Calendar'}
+              </Button>
+            )}
+            <Button size="sm" onClick={() => setEditing({ venue: 'Music Hall', category: 'music' })}>
+              + Add event
+            </Button>
+          </>
         }
       />
       {saved && (
@@ -107,6 +133,17 @@ export default function EventsPage() {
           <a href={eventHref(saved)} target="_blank" rel="noreferrer" className="font-semibold">
             See it on the site ↗
           </a>
+          {saved.calendar === 'synced' && ' Google Calendar is updated too.'}
+        </Alert>
+      )}
+      {saved?.calendar === 'failed' && (
+        <Alert variant="warning" className="mb-5 font-normal">
+          The event is saved, but Google Calendar didn’t update. Use “Sync Google Calendar” to try again.
+        </Alert>
+      )}
+      {syncNote && (
+        <Alert variant="info" className="mb-5 font-normal">
+          {syncNote}
         </Alert>
       )}
       <ErrorNote>{error}</ErrorNote>

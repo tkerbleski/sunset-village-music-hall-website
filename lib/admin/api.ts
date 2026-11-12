@@ -60,6 +60,7 @@ export interface Setup {
   uploads: boolean
   payments: boolean
   backups: boolean
+  calendar: boolean
 }
 
 export interface Me extends Setup {
