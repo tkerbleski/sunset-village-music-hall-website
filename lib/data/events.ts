@@ -20,6 +20,9 @@ export interface VillageEvent {
   subtitle?: string
   /** Button label, e.g. "Get tickets" or "RSVP". */
   cta?: string
+  /** Structured start/end, 24h "HH:MM" Pacific, for calendar sync. `time` stays the display text. */
+  startTime?: string
+  endTime?: string
   date: string // yyyy-mm-dd
   time?: string
   venue: string

@@ -31,6 +31,7 @@ const SERVICES: { key: keyof Setup; label: string; off: string }[] = [
   { key: 'payments', label: 'Online tickets (Stripe)', off: 'Events can’t sell tickets on the site yet.' },
   { key: 'uploads', label: 'Flyer uploads', off: 'You can’t upload flyer images yet.' },
   { key: 'backups', label: 'Weekly backup email', off: 'The Monday backup email isn’t running.' },
+  { key: 'calendar', label: 'Google Calendar sync', off: 'Events aren’t copied to the Google Calendar.' },
 ]
 
 const shortDate = (iso: string) =>

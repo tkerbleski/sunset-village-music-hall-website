@@ -100,6 +100,22 @@ export function EventForm({
               <Input density="compact" id="ev-time" value={d.time ?? ''} onChange={set('time')} />
             </FormField>
           </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <FormField
+              label="Start time (optional)"
+              htmlFor="ev-startTime"
+              hint="For Google Calendar. Leave blank for an all-day entry."
+            >
+              <Input density="compact" id="ev-startTime" type="time" value={d.startTime ?? ''} onChange={set('startTime')} />
+            </FormField>
+            <FormField
+              label="End time (optional)"
+              htmlFor="ev-endTime"
+              hint="Blank means three hours after the start. Past midnight is fine."
+            >
+              <Input density="compact" id="ev-endTime" type="time" value={d.endTime ?? ''} onChange={set('endTime')} />
+            </FormField>
+          </div>
           <FormField
             label="Where"
             htmlFor="ev-venue"
