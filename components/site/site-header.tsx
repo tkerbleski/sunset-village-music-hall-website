@@ -17,7 +17,7 @@ export function SiteHeader() {
           </Fragment>
         ))}
         <Link href="/#newsletter" className="text-ink underline">
-          Get the fog report →
+          Get the {site.newsletter} →
         </Link>
       </div>
       <div className="container-site flex flex-wrap items-center justify-between gap-4 py-4">

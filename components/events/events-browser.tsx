@@ -7,6 +7,7 @@ import type { VillageEvent } from '@/lib/data/events'
 import { categoryOf, groupByMonth } from '@/lib/events'
 import { EventCard } from './event-card'
 import { MonthHeading } from './month-heading'
+import { site } from '@/lib/data/site'
 
 type Filter = 'all' | EventCategory
 
@@ -47,7 +48,7 @@ export function EventsBrowser({ events, initial }: { events: VillageEvent[]; ini
           <p className="rounded-xl border-2 border-dashed border-ink px-7 py-6 text-lede">
             {events.length
               ? 'Nothing in this category right now. Try Everything.'
-              : 'Nothing on the calendar just yet. New shows land in the fog report first.'}
+              : `Nothing on the calendar just yet. New shows land in the ${site.newsletter} first.`}
           </p>
         </section>
       )}
