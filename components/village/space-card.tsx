@@ -30,7 +30,7 @@ export function SpaceCard({ space }: { space: Tenant }) {
   const hall = isMusicHall(space)
   const instagram = space.instagram ?? (hall ? site.instagram : undefined)
   const hours = space.hours ? hourLines(space.hours).join(' · ') : space.hoursNote
-  const kind = space.type ?? '[Business type]'
+  const kind = [space.type ?? '[Business type]', space.unit].filter(Boolean).join(' · ')
 
   return (
     <article className="lift flex flex-col overflow-hidden rounded-xl border-2 border-ink bg-card">

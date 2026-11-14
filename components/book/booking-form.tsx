@@ -28,7 +28,7 @@ const EVENT_TYPES = [
   'Community meeting',
   'Something else',
 ]
-const NEEDS = ['Sound engineer', 'Lighting', 'Bar service', 'Backline / drums', 'Ticketing', 'Chairs & tables']
+const NEEDS = ['Sound engineer', 'Lighting', 'Bar service', 'Projector', 'Ticketing', 'Chairs & tables']
 
 const schema = z.object({
   name: z.string().trim().min(1, 'Tell us your name.'),
@@ -169,7 +169,7 @@ export function BookingForm() {
           />
         </Field>
         <Field id="b-headcount" label="Expected guests *" error={errors.headcount?.message}>
-          <Input id="b-headcount" type="number" min={1} inputMode="numeric" placeholder={`Up to ${site.room.capacity}`} {...register('headcount')} {...a11y('headcount')} />
+          <Input id="b-headcount" type="number" min={1} inputMode="numeric" placeholder={`Room holds ${site.room.capacity.toLowerCase()}`} {...register('headcount')} {...a11y('headcount')} />
         </Field>
         <Field id="b-date" label="Preferred date *" error={errors.date?.message}>
           <Input id="b-date" type="date" {...register('date')} {...a11y('date')} />

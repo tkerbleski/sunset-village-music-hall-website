@@ -159,8 +159,11 @@ export function ShopForm({ initial, setup, onDone }: { initial: ShopDraft; setup
             </ToggleGroup>
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
-            <FormField label="Type (optional)" htmlFor="shop-type" hint="Small line on the card, e.g. “Gift shop”.">
+            <FormField label="Type (optional)" htmlFor="shop-type" hint="Small line on the card, e.g. “Curated goods”.">
               <Input density="compact" id="shop-type" value={d.type ?? ''} onChange={set('type')} />
+            </FormField>
+            <FormField label="Address (optional)" htmlFor="shop-unit" hint="e.g. “1399 46th Ave”.">
+              <Input density="compact" id="shop-unit" value={d.unit ?? ''} onChange={set('unit')} />
             </FormField>
           </div>
           <FormField label="Description" htmlFor="shop-blurb" hint="A sentence or two about what they are.">

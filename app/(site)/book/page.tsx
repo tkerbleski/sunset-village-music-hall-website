@@ -21,8 +21,8 @@ const TAG_TONES = ['yellow', 'teal', 'pink'] as const
 
 const STEPS = [
   { fill: 'bg-sun', text: 'Send the request. Rough dates are fine.' },
-  { fill: 'bg-yellow', text: `We reply within ${site.replyTime} with availability and a quote.` },
-  { fill: 'bg-teal', text: `Lock it in with a ${site.deposit} and we’ll plan the night together.` },
+  { fill: 'bg-yellow', text: `We reply within ${site.replyTime} with a quote or a door split.` },
+  { fill: 'bg-teal', text: `Lock in your date with a deposit of ${site.deposit}. The rest is due on the day of the event.` },
 ]
 
 export default async function BookPage() {

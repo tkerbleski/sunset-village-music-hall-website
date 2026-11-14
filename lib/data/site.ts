@@ -16,9 +16,11 @@ export const site = {
   },
   url: 'https://sunsetvillagesf.com',
   directionsUrl: 'https://maps.google.com/?q=4114+Judah+St,+San+Francisco,+CA+94122',
-  transit: 'N Judah to 46th Avenue. It stops right out front.',
-  parking: '[Parking notes]',
-  boxOffice: '[Doors and box office hours]',
+  transit:
+    'Take the N Judah westbound to 46th Avenue, one stop before the end of the line, or the 18 bus to Judah. We’re on the northwest corner.',
+  parking:
+    'Parking can be tricky, so take Muni if you can. Street parking turns over regularly, so be patient, and please don’t block neighbors’ driveways.',
+  boxOffice: 'Shows usually run 7 to 10pm. See each show for exact times.',
   instagram: 'https://www.instagram.com/sunsetvillagesf/',
   instagramHandle: '@sunsetvillagesf',
   /** Booking inquiries. Managed by the in-house music coordinator. */
@@ -27,13 +29,14 @@ export const site = {
   phone: '[(415) 000-0000]',
   leasingEmail: '[leasing@sunsetvillagesf.com]',
   room: {
-    capacity: '[capacity]',
+    capacity: 'About 150',
     stage: '2550 sq feet (~75 x 30)',
-    sound: '[PA, monitors, house engineer]',
-    extras: '[Lights, bar, green room]',
+    sound: 'PA for vocals and keys, XLR into the board, QSC K10 front monitors, house mics and stands. No backline.',
+    extras: 'Projector onto the stage wall (HDMI or USB-C), and a green room for the band and VIPs.',
   },
-  replyTime: '[X business days]',
-  deposit: '[deposit]',
+  replyTime: 'a week',
+  /** Deposit that holds a date; the rest is due on the day of the event. */
+  deposit: 'half the quote',
 } as const
 
 export const fullAddress = `${site.address.street}, ${site.address.city}, ${site.address.state} ${site.address.zip}`
