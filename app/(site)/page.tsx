@@ -89,10 +89,10 @@ export default async function HomePage() {
         ) : (
           <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border-2 border-dashed border-ink px-7 py-6">
             <p className="text-lede">
-              Nothing on the calendar just yet. New shows land in the fog report first.
+              Nothing on the calendar just yet. New shows land in the {site.newsletter} first.
             </p>
             <Button asChild variant="outline">
-              <Link href="#newsletter">Get the fog report</Link>
+              <Link href="#newsletter">Get the {site.newsletter}</Link>
             </Button>
           </div>
         )}
@@ -186,7 +186,7 @@ export default async function HomePage() {
             <Eyebrow sparkle={false} className="mb-0 text-ink">
               Newsletter
             </Eyebrow>
-            <h2 className="text-display-band">Get the fog report.</h2>
+            <h2 className="text-display-band">Get the {site.newsletter}.</h2>
             <p className="max-w-140 text-xl">
               New shows, presales and what’s happening around the Village, straight to your inbox.
             </p>

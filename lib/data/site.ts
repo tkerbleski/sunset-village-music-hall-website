@@ -7,6 +7,8 @@ export const site = {
   building: 'Sunset Village',
   corner: '46th & Judah',
   tagline: 'Live music in the fog',
+  /** The newsletter's name, used in signup copy across the site. */
+  newsletter: 'Village Voice',
   neighborhood: 'Outer Sunset, San Francisco',
   address: {
     street: '4114 Judah St',

@@ -4,6 +4,7 @@
 // sunsetvillagesf.com domain so the key cannot reach any other site's lists.
 
 import tokens from '@/lib/tokens.json'
+import { site } from '@/lib/data/site'
 
 export const SITE_URL = 'https://sunsetvillagesf.com'
 
@@ -70,7 +71,7 @@ export function announcementHtml(body: string, unsubscribeUrl: string): string {
 ${paras}
 <hr style="border:none;border-top:1px solid ${c('line')};margin:28px 0 12px">
 <p style="font-size:13px;color:${c('ink-2')};margin:0">Sunset Village Music Hall · 4114 Judah St, San Francisco<br>
-You signed up at sunsetvillagesf.com. <a href="${unsubscribeUrl}" style="color:${c('ink-2')}">Unsubscribe</a></p>
+You signed up for the ${site.newsletter} at sunsetvillagesf.com. <a href="${unsubscribeUrl}" style="color:${c('ink-2')}">Unsubscribe</a></p>
 </div></div>`
 }
 

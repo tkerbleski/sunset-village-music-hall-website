@@ -60,12 +60,12 @@ export const tenants: Tenant[] = [
   },
   {
     id: 'bright-moments',
-    name: 'Bright Moments Flower Shop',
+    name: 'Bright Moments',
     status: 'open',
-    type: 'Flowers & decor',
+    type: 'Flowers & gifts',
     unit: '1397 46th Ave',
     fill: 'pink',
-    blurb: 'A retail store with items for all of life’s bright moments, including flower arrangements and other decor.',
+    blurb: 'A flower shop with gifts, cards and more for all of life’s bright moments.',
   },
 ]
 

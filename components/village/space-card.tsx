@@ -83,7 +83,7 @@ export function ComingSoonCard() {
       <Sparkle size={32} />
       <span className="kind">Coming soon</span>
       <h3 className="text-heading-lg">Something new is moving in</h3>
-      <p className="text-ink-2">Watch this space. We’ll announce new neighbors in the fog report.</p>
+      <p className="text-ink-2">Watch this space. We’ll announce new neighbors in the {site.newsletter}.</p>
       <Link className="font-bold" href="/#newsletter">
         Get the newsletter →
       </Link>
