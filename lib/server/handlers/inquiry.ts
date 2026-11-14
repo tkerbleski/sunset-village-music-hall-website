@@ -1,5 +1,5 @@
 // Vercel serverless function: POST /api/inquiry
-// Saves a booking/event inquiry to the database (shown in /admin under
+// Saves a booking/event or leasing inquiry to the database (shown in /admin under
 // Bookings) and emails it to INQUIRY_TO via Resend when email is set up.
 // Succeeds if either the save or the email went through; if both fail the
 // visitor sees an error (their form stays filled in) and can try again.
@@ -17,6 +17,7 @@ export default async function handler(req: VercelReq, res: VercelRes) {
   }
 
   const body = req.body ?? {}
+  const leasing = body.kind === 'leasing'
   const type = str(body.type).slice(0, 100)
   const name = str(body.name).slice(0, 200)
   const org = str(body.org).slice(0, 200)
@@ -54,13 +55,17 @@ export default async function handler(req: VercelReq, res: VercelRes) {
     const lines = [
       `Type: ${type || '(not given)'}`,
       `Name: ${name}`,
-      `Band / org / company: ${org || '(none)'}`,
+      `${leasing ? 'Business' : 'Band / org / company'}: ${org || '(none)'}`,
       `Email: ${email}`,
       `Phone: ${phone || '(none)'}`,
-      `Preferred date: ${date || '(none)'}`,
-      `Backup date: ${backupDate || '(none)'}`,
-      `Expected guests: ${headcount || '(none)'}`,
-      `Needs: ${needs || '(none)'}`,
+      ...(leasing
+        ? []
+        : [
+            `Preferred date: ${date || '(none)'}`,
+            `Backup date: ${backupDate || '(none)'}`,
+            `Expected guests: ${headcount || '(none)'}`,
+            `Needs: ${needs || '(none)'}`,
+          ]),
       '',
       'Message:',
       message,
@@ -70,7 +75,9 @@ export default async function handler(req: VercelReq, res: VercelRes) {
     emailed = await sendEmail({
       to: [process.env.INQUIRY_TO!],
       reply_to: email,
-      subject: `Sunset Village inquiry — ${type || 'general'} — ${name}`,
+      subject: leasing
+        ? `Sunset Village leasing inquiry — ${type.replace(/^Leasing · /, '')} — ${name}`
+        : `Sunset Village inquiry — ${type || 'general'} — ${name}`,
       text: lines.join('\n'),
     })
   }

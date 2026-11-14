@@ -4,8 +4,9 @@ import { WaveDivider } from '@/components/brand/wave-divider'
 import { Band, Section, SectionHead } from '@/components/layout/section'
 import Image from 'next/image'
 import { ComingSoonCard, SpaceCard } from '@/components/village/space-card'
+import { LeasingForm } from '@/components/village/leasing-form'
 import { loadContent } from '@/lib/server/content'
-import { site, isPlaceholder } from '@/lib/data/site'
+import { site } from '@/lib/data/site'
 
 export const metadata: Metadata = {
   title: 'The Village',
@@ -65,24 +66,17 @@ export default async function VillagePage() {
         </div>
       </Section>
 
-      <Section className="pt-6 pb-22">
-        <Band tone="teal">
-          <div className="min-w-0 flex-[999_1_420px]">
+      <Section id="leasing" className="scroll-mt-6 pt-6 pb-22">
+        <Band tone="teal" className="items-start">
+          <div className="min-w-0 flex-[1_1_300px]">
             <h2 className="mb-2 text-display-md">Want to set up shop here?</h2>
-            <p className="text-lede">Retail, office and studio space is available. We’re looking for local, independent businesses. Let’s talk.</p>
+            <p className="text-lede">
+              Retail, office and studio space is available. We’re looking for local, independent businesses. Let’s talk.
+            </p>
           </div>
-          {isPlaceholder(site.leasingEmail) ? (
-            <span className="inline-flex min-h-12 items-center rounded-full border-2 border-ink bg-ink px-5.5 font-bold text-fog select-all">
-              {site.leasingEmail}
-            </span>
-          ) : (
-            <a
-              href={`mailto:${site.leasingEmail}`}
-              className="inline-flex min-h-12 items-center rounded-full border-2 border-ink bg-ink px-5.5 font-bold text-fog no-underline select-all hover:bg-ink-hover"
-            >
-              {site.leasingEmail}
-            </a>
-          )}
+          <div className="min-w-0 flex-[1.4_1_420px] rounded-xl border-2 border-ink bg-card p-7 max-[520px]:px-5 max-[520px]:py-6">
+            <LeasingForm />
+          </div>
         </Band>
       </Section>
     </>

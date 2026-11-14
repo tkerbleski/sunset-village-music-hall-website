@@ -150,10 +150,10 @@ export default async function HomePage() {
             <dl className="flex flex-col gap-4 text-lg">
               {(
                 [
-                  ['General', site.generalEmail, `mailto:${site.generalEmail}`],
-                  ['Phone', site.phone, `tel:${site.phone}`],
+                  ['Artists & promoters', 'Request a date', '/book'],
+                  ['Leasing', 'Ask about space', '/village#leasing'],
                   ['Instagram', site.instagramHandle, site.instagram],
-                  ['Artists & promoters', site.bookingEmail, `mailto:${site.bookingEmail}`],
+                  ['Phone', site.phone, `tel:${site.phone}`],
                 ] as const
               ).map(([label, value, href]) => (
                 <div key={label}>
