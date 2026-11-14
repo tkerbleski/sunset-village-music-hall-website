@@ -153,7 +153,7 @@ export default async function HomePage() {
                   ['Artists & promoters', 'Request a date', '/book'],
                   ['Leasing', 'Ask about space', '/village#leasing'],
                   ['Instagram', site.instagramHandle, site.instagram],
-                  ['Phone', site.phone, `tel:${site.phone}`],
+                  ['Phone', site.phone, `tel:+1${site.phone.replace(/\D/g, '')}`],
                 ] as const
               ).map(([label, value, href]) => (
                 <div key={label}>

@@ -23,7 +23,7 @@ export const site = {
   boxOffice: 'Shows usually run 7 to 10pm. See each show for exact times.',
   instagram: 'https://www.instagram.com/sunsetvillagesf/',
   instagramHandle: '@sunsetvillagesf',
-  phone: '[(415) 000-0000]',
+  phone: '415-484-2101',
   room: {
     capacity: 'About 150',
     stage: '2550 sq feet (~75 x 30)',
