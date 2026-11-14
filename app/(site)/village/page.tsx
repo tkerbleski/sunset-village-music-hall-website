@@ -10,7 +10,7 @@ import { site, isPlaceholder } from '@/lib/data/site'
 export const metadata: Metadata = {
   title: 'The Village',
   description:
-    'Sunset Village is a building at 4114 Judah St with the music hall and local businesses under one roof. Meet the neighbors.',
+    'Sunset Village Music Hall is at 46th & Judah, in the old Sunset Village Shopping Center, with local shops on the corner. Meet the neighbors.',
 }
 
 export const revalidate = 30
@@ -28,8 +28,9 @@ export default async function VillagePage() {
               One building. <span className="text-sun">Good neighbors.</span>
             </h1>
             <p className="max-w-135 text-lede text-mist">
-              Sunset Village is a building on Judah St with a handful of spaces under one roof: the music hall plus local
-              businesses worth a detour. Make a night of it.
+              The music hall is in a building on Judah St. In the 1940s and ’50s, this and the other buildings along 45th and
+              46th Aves were known as the Sunset Village Shopping Center. Today there are new shops on the corner of 46th Ave
+              too. Make a night of it.
             </p>
           </div>
           <div className="relative aspect-[10/7] overflow-hidden rounded-2xl">
@@ -68,7 +69,7 @@ export default async function VillagePage() {
         <Band tone="teal">
           <div className="min-w-0 flex-[999_1_420px]">
             <h2 className="mb-2 text-display-md">Want to set up shop here?</h2>
-            <p className="text-lede">We’re looking for local, independent businesses to fill the Village. Let’s talk.</p>
+            <p className="text-lede">Retail, office and studio space is available. We’re looking for local, independent businesses. Let’s talk.</p>
           </div>
           {isPlaceholder(site.leasingEmail) ? (
             <span className="inline-flex min-h-12 items-center rounded-full border-2 border-ink bg-ink px-5.5 font-bold text-fog select-all">

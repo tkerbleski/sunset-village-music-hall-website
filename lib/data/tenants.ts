@@ -20,9 +20,9 @@ export interface Tenant {
   /** External site, or internal path starting with "/". */
   link?: string
   linkLabel?: string
-  /** Shown in the mono kind line, e.g. "Gift shop". */
+  /** Shown in the mono kind line, e.g. "Curated goods". */
   type?: string
-  /** Legacy: no longer shown anywhere. The DB column is kept so old rows still load. */
+  /** Street address, e.g. "1399 46th Ave". Shown after the type. (Stored in the old `unit` column.) */
   unit?: string
   instagram?: string
   /** Storefront photo; fills the card's photo area. */
@@ -50,10 +50,10 @@ export const tenants: Tenant[] = [
     id: 'sunset-variety',
     name: 'Sunset Variety',
     status: 'open',
-    type: 'Gift shop',
+    type: 'Curated goods',
+    unit: '1399 46th Ave',
     fill: 'teal',
-    blurb:
-      'A shop of prints, ceramics, textiles, woodwork, and other goods by artists with roots in the Sunset.',
+    blurb: 'Prints, ceramics, textiles, woodwork and more, curated from over 90 local artists.',
     hours: [H('11:00', '18:00'), CLOSED, CLOSED, CLOSED, CLOSED, H('11:00', '18:00'), H('11:00', '18:00')],
     link: 'https://sunsetvariety.com/',
     linkLabel: 'sunsetvariety.com',
@@ -61,11 +61,11 @@ export const tenants: Tenant[] = [
   {
     id: 'bright-moments',
     name: 'Bright Moments Flower Shop',
-    status: 'coming-soon',
-    type: 'Flower shop',
+    status: 'open',
+    type: 'Flowers & decor',
+    unit: '1397 46th Ave',
     fill: 'pink',
-    blurb: 'A neighborhood flower shop, opening September 12.',
-    hoursNote: 'Opens September 12',
+    blurb: 'A retail store with items for all of life’s bright moments, including flower arrangements and other decor.',
   },
 ]
 
