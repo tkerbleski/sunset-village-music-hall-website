@@ -34,14 +34,13 @@ export default async function VillagePage() {
           </div>
           <div className="relative aspect-[10/7] overflow-hidden rounded-2xl">
             <Image
-              src="/photos/village-hero-toggery.webp"
-              alt="The Sunset Village corner decades ago: a low storefront with a painted “Sunset Village, your complete shopping center” sign, the Sunset Toggery and Sally’s Coffee Shop, and a vintage car parked out front"
+              src="/photos/sunset-village-colorized.jpeg"
+              alt="Sunset Village in the 1950s: the cream storefront with its red script “Sunset Village, a complete shopping center” sign and the Sunset Variety Store, a vintage car parked out front, and a green-and-cream Judah streetcar heading up the street"
               fill
               priority
               sizes="(max-width: 760px) 100vw, 620px"
-              className="photo-duotone object-cover"
+              className="object-cover object-[68%_center]"
             />
-            <div className="photo-tint absolute inset-0" aria-hidden="true" />
           </div>
         </div>
         <WaveDivider />
