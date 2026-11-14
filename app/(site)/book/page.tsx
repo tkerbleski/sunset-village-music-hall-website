@@ -90,9 +90,6 @@ export default async function BookPage() {
                   Open the request form ↗
                 </a>
               </Button>
-              <p className="text-ui text-ink-2">
-                Or email <a href={`mailto:${site.bookingEmail}`}>{site.bookingEmail}</a>
-              </p>
             </div>
           ) : (
             <BookingForm />

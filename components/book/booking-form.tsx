@@ -8,14 +8,13 @@ import { z } from 'zod'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Alert } from '@/components/ui/alert'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Sparkle } from '@/components/brand/sparkle'
+import { Field, fieldGrid as grid } from '@/components/site/form-field'
 import { site } from '@/lib/data/site'
 import { postJson } from '@/lib/post'
-import { cn } from '@/lib/utils'
 
 const EVENT_TYPES = [
   'Concert or show',
@@ -43,35 +42,6 @@ const schema = z.object({
   message: z.string().trim().min(1, 'Tell us a little about it.'),
 })
 type Values = z.input<typeof schema>
-
-/** One field: label, control, inline error. */
-function Field({
-  id,
-  label,
-  error,
-  className,
-  children,
-}: {
-  id: string
-  label: string
-  error?: string
-  className?: string
-  children: React.ReactNode
-}) {
-  return (
-    <div className={cn('flex min-w-0 flex-col gap-1.5', className)}>
-      <Label htmlFor={id}>{label}</Label>
-      {children}
-      {error && (
-        <p id={`${id}-error`} className="text-ui font-semibold text-danger-text">
-          {error}
-        </p>
-      )}
-    </div>
-  )
-}
-
-const grid = 'grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-4'
 
 export function BookingForm() {
   const [status, setStatus] = useState<'idle' | 'error' | 'sent'>('idle')
@@ -221,18 +191,13 @@ export function BookingForm() {
 
       {status === 'error' && (
         <Alert variant="destructive">
-          Something went wrong sending your request. Please try again, or email {site.bookingEmail}.
+          Something went wrong sending your request. Please try again in a moment.
         </Alert>
       )}
 
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        <span className="text-ui text-ink-2">
-          Or email <a href={`mailto:${site.bookingEmail}`}>{site.bookingEmail}</a>
-        </span>
-        <Button type="submit" variant="sun" size="lg" disabled={isSubmitting}>
-          {isSubmitting ? 'Sending…' : 'Send request →'}
-        </Button>
-      </div>
+      <Button type="submit" variant="sun" size="lg" className="self-end" disabled={isSubmitting}>
+        {isSubmitting ? 'Sending…' : 'Send request →'}
+      </Button>
     </form>
   )
 }
